@@ -1,10 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import {Injectable} from '@nestjs/common';
 import {InjectRepository} from "@nestjs/typeorm";
-
-import {FindConditions, FindManyOptions, Repository, UpdateResult} from "typeorm";
+import {getConnection, Repository, SelectQueryBuilder, UpdateResult} from "typeorm";
 import {Familycalender} from "./calender.entity";
-import {options} from "tsconfig-paths/lib/options";
-import {fchmod} from "fs";
 
 @Injectable()
 export class CalenderService {
@@ -14,6 +11,20 @@ export class CalenderService {
         @InjectRepository(Familycalender)
         private readonly calenderRepository: Repository<Familycalender>
     ){}
+
+
+    async findNames(): Promise<Familycalender[]> {
+        return this.calenderRepository.find({
+            select: ["firstname"]
+        });
+    };
+
+
+    async findSortByDate(): Promise<Familycalender[]>{
+        return (await this.calenderRepository.createQueryBuilder( 'familycalender')
+            .orderBy('familycalender.eventdate', 'ASC')
+            .getMany());
+    }
 
 
     findAll(): Promise<Familycalender[]>{
@@ -35,8 +46,6 @@ export class CalenderService {
     async update(calender: Familycalender): Promise<UpdateResult>{
         return this.calenderRepository.update(calender.id, calender)
     }
-
-
 }
 
 

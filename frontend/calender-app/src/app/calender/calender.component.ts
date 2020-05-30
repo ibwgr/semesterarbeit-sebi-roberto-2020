@@ -11,13 +11,6 @@ export class CalenderComponent implements OnInit {
 
   termine: Calender[];
 
-  test: string = "hallo";
-
-  titel: string = "Hallo Angular"
-
-  link: string = "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
-
-
 
   constructor(private service: CalenderHttpService) { }
 

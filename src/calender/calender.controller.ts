@@ -3,23 +3,23 @@ import {CalenderService} from "./calender.service";
 import {Familycalender} from "./calender.entity";
 
 
-@Controller('events')
+@Controller()
 export class CalenderController {
 
     constructor(private calenderService: CalenderService) {}
 
 
-    @Get()
+   @Get('events')
     findAll(): Promise<Familycalender[]> {
         return this.calenderService.findAll()
     }
 
-    @Get(':id')
+    @Get('events/:id')
     findOne(@Param('id') id: string): any {
         return this.calenderService.findOne(id)
     }
 
-   @Delete(':id')
+   @Delete('events/:id')
     remove(@Param('id')id:string):any{
         return this.calenderService.remove(id)
    }
@@ -29,9 +29,21 @@ export class CalenderController {
         return this.calenderService.create(calender)
    }
 
-   @Put(':id')
+   @Put('events/:id')
     async update(@Param('id') id, @Body() calender: Familycalender): Promise<any>{
         calender.id = Number(id);
         return this.calenderService.update(calender)
    }
+
+   @Get('names')
+    findByNam(): Promise<Familycalender[]> {
+        return this.calenderService.findNames()
+   }
+
+    @Get('dates')
+    findByDate(): Promise<Familycalender[]> {
+        return this.calenderService.findSortByDate()
+    }
+
+
 }
