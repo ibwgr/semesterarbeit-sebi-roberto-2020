@@ -5,16 +5,8 @@ export class View {
 
     constructor() {
 
-        function appendData(data) {
-            let mainContainer = document.getElementById("values");
-            for (let i = 0; i < data.length; i++) {
-                let div = document.createElement("div");
-                div.innerHTML = 'Name: ' + data[i].firstname + ' ' + data[i].appointment;
-                mainContainer.appendChild(div)
 
-                return div.innerHTML
-            }
-        }
+
 
             // set variables
             let today = new Date();
@@ -99,25 +91,8 @@ export class View {
                     cell.classList.add("singleDay");
                     cell.appendChild(cellText);
 
-
                     calendarBody.appendChild(cell);
-
-                    fetch('http://localhost:3000/events')
-                            .then(function (response) {
-                                return response.json();
-                            })
-                            .then(function (data) {
-
-                              user.innerText = data[0].firstname
-
-
-                            })
-                            .catch(function (err) {
-                                console.log('error: ' + err);
-                            });
                     user1.appendChild(user)
-
-
                 }
                 // set month string value
                 document.getElementById("month").innerHTML = months[month];

@@ -1,6 +1,6 @@
 import {Injectable} from '@nestjs/common';
 import {InjectRepository} from "@nestjs/typeorm";
-import {getConnection, Repository, SelectQueryBuilder, UpdateResult} from "typeorm";
+import {Repository, UpdateResult} from "typeorm";
 import {Familycalender} from "./calender.entity";
 
 @Injectable()
@@ -24,6 +24,11 @@ export class CalenderService {
         return (await this.calenderRepository.createQueryBuilder( 'familycalender')
             .orderBy('familycalender.eventdate', 'ASC')
             .getMany());
+    }
+
+    async findEntriesByMonth(monat): Promise<Familycalender[]>{
+        return await this.calenderRepository.query(
+            "select * from familycalender where month(eventdate) = "+monat+"")
     }
 
 

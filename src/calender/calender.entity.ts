@@ -1,6 +1,8 @@
-import {Entity, Column, PrimaryGeneratedColumn, ManyToOne} from 'typeorm';
+import {Entity, Column, PrimaryGeneratedColumn} from 'typeorm';
 
-@Entity()
+
+@Entity('familycalender')
+
 export class Familycalender {
 
     @PrimaryGeneratedColumn()
@@ -10,10 +12,13 @@ export class Familycalender {
     firstname: string;
 
     @Column()
-    appointment: string;
+    eventdate: Date;
+
 
     @Column()
-    eventdate: string;
+    appointment: string;
+
+
 
  }
 
