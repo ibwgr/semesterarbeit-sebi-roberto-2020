@@ -28,7 +28,7 @@ export class CalenderService {
 
     async findEntriesByMonth(monat): Promise<Familycalender[]>{
         return await this.calenderRepository.query(
-            "select * from familycalender where month(eventdate) = "+monat+"")
+            "select * from familycalender  where month(eventdate) LIKE "+monat+" order by eventdate")
     }
 
 
