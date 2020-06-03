@@ -51,7 +51,6 @@ body {
 }
 
 #days {
-
     background: #eee;
     margin: 0;
     width: 280px;
@@ -64,7 +63,7 @@ body {
     font-size: 16px;
     color: #777;
     border: 1px solid #ccc;;
-    max-width: 390px;
+    max-width: 990px;
     height: 60px;
 }
 
@@ -76,14 +75,34 @@ body {
 
 }
 
+#user2 {
+    background: #eee;
+    margin: 0;
+    width: 980px;
+}
+
 #user1 li {
     list-style-type: none;
-    text-align: left;
+    text-align: center;
     font-size: 16px;
     color: #777;
     border: 1px solid #ccc;;
-    max-width: 390px;
+    max-width: 1090px;
     height: 60px;
+    float: left;
+}
+
+
+
+#user2 li {
+    list-style-type: none;
+    text-align: center;
+    font-size: 16px;
+    color: #777;
+    border: 1px solid #ccc;;
+    max-width: 1090px;
+    height: 60px;
+    margin-left: 20px;
 }
 
 #days li.active {
