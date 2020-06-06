@@ -4,7 +4,5 @@ export class Calendermapper {
     constructor() {
 
 
-
         }
-
 }
