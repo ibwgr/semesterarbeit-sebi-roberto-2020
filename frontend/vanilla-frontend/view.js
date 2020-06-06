@@ -1,6 +1,4 @@
 
-
-
 export class View {
 
 
@@ -181,7 +179,6 @@ export class View {
                 const key = mainContainer[mainContainer.length-1].eventdate;
                 calenderMap.set(key, userMap)
             }
-
 
 
             for (let [key, value] of calenderMap.entries()) {
