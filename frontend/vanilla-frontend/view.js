@@ -184,7 +184,7 @@ export class View {
 
 
 
-                 for (let [key, value] of calenderMap.entries()) {
+            for (let [key, value] of calenderMap.entries()) {
 
                 let r = "Roberto";
                 let s = "Sebi";
@@ -194,8 +194,6 @@ export class View {
                 let b = [];
                 let c = [];
                 let d = [];
-
-
 
                 let time = new Date(key);
 
