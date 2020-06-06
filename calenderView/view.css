@@ -1,0 +1,168 @@
+* {
+    box-sizing: border-box;
+}
+ul {
+    list-style-type: none;
+}
+body {
+    font-family: Verdana, sans-serif;
+}
+
+#calendar {
+    max-width: 600px;
+}
+
+#content{
+    display: flex;
+}
+
+.month {
+    padding: 70px 25px;
+    width: 100%;
+    background: #1abc9c;
+    text-align: center;
+}
+
+.month ul {
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+.month ul li {
+    color: white;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+
+}
+
+#weekdays {
+    margin: 0;
+    width: 170px;
+    background-color: #ddd;
+    float: left;
+}
+
+#weekdays li {
+    color: #666;
+    text-align: center;
+    height: 60px;
+    border: 1px solid #ccc;;
+}
+
+#days {
+    background: #eee;
+    margin: 0;
+    width: 280px;
+}
+
+#days li {
+    list-style-type: none;
+    text-align: left;
+    font-size: 16px;
+    color: #777;
+    border: 1px solid #ccc;;
+    max-width: 990px;
+    height: 60px;
+  }
+
+
+#user1 {
+    background: #eee;
+    margin: 0;
+    width: 680px;
+}
+
+#user2 {
+    background: #eee;
+    margin: 0;
+    width: 680px;
+}
+
+#user3 {
+    background: #eee;
+    margin: 0;
+    width: 680px;
+}
+
+#user4 {
+    background: #eee;
+    margin: 0;
+    width: 680px;
+}
+
+#user1 li {
+    list-style-type: none;
+    text-align: center;
+    font-size: 16px;
+    color: #777;
+    border: 1px solid #ccc;;
+    max-width: 1090px;
+    height: 60px;
+}
+
+
+#user2 li {
+    list-style-type: none;
+    text-align: center;
+    font-size: 16px;
+    color: #777;
+    border: 1px solid #ccc;;
+    max-width: 1090px;
+    height: 60px;
+}
+
+#user3 li {
+    list-style-type: none;
+    text-align: center;
+    font-size: 16px;
+    color: #777;
+    border: 1px solid #ccc;;
+    max-width: 1090px;
+    height: 60px;
+}
+
+#user4 li {
+    list-style-type: none;
+    text-align: center;
+    font-size: 16px;
+    color: #777;
+    border: 1px solid #ccc;;
+    max-width: 1090px;
+    height: 60px;
+}
+
+#days li.active {
+    background: #1abc9c;
+    color: white !important;
+}
+
+#next,
+#prev {
+    cursor: pointer;
+}
+
+/* Add media queries for smaller screens */
+@media screen and (max-width: 720px) {
+    .weekdays li,
+    #days li {
+        width: 13.1%;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .weekdays li,
+    #days li {
+        width: 12.5%;
+    }
+    #days li .active {
+        padding: 2px;
+    }
+}
+
+
+
+
