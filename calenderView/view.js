@@ -4,7 +4,7 @@ export class View {
 
     constructor() {
 
-        fetch('http://localhost:3000/month/' + 4)
+        fetch('http://localhost:3000/month/' + 8)
             .then(function (response) {
                 return response.json();
             })
@@ -70,6 +70,7 @@ export class View {
                 // gets the day of the week for this date
                 let weekday = new Date(year, month).getDay();
                 // clearing all previous cells
+
                 calendarBody.innerHTML = "";
                 // checking the mount of days in this month to control the loop
                 let totalDays = daysInMonth(month, year);
@@ -130,17 +131,18 @@ export class View {
             for (let i = 0; i < data.length; i++) {
                 mainContainer.push(data[i]);
             }
-                let timeArray = [];
-            let userMap = new Map(); // neue Map initialisiert für ein user mit event
-            for (let x = 0; x < mainContainer.length; x++){
+
+
+                let userMap = new Map(); // neue Map initialisiert für ein user mit event
+
+                for (let x = 0; x < mainContainer.length; x++){
+
+
 
                 let currentEntry = mainContainer[x]; //aktueller Eintrag
                 let nextEntry = mainContainer[x + 1]; // nächster Eintrag
 
-
                 if (nextEntry && currentEntry.eventdate === nextEntry.eventdate) { //check ob es weitere Events am gleichen Tag gibt
-
-
 
                     let user = currentEntry.firstname;
                     let event = currentEntry.appointment;
@@ -175,90 +177,132 @@ export class View {
                     userMap = new Map(); // neue userMap für neues Datum wird initialisiert.
                 }
             }
+
+
             if (userMap.size > 0){          // bearbeitung des letzten Eintrags
                 const key = mainContainer[mainContainer.length-1].eventdate;
                 calenderMap.set(key, userMap)
             }
 
+            let timeArray = [];
 
-            for (let [key, value] of calenderMap.entries()) {
+                for (let [key, value] of calenderMap.entries()) {
 
-                let r = "Roberto";
-                let s = "Sebi";
-                let f = "Fredi";
-                let z = "Susi";
-                let a = [];
-                let b = [];
-                let c = [];
-                let d = [];
+                    let r = "Roberto";
+                    let s = "Sebi";
+                    let f = "Fredi";
+                    let z = "Susi";
 
-                let time = new Date(key);
+                    let time = new Date(key);
+                    let tag = time.getDate();
+                    let xy = value.entries();
 
-                let tag = time.getDate();
+                    let a = [];
+                    let b = [];
+                    let c = [];
+                    let d = [];
 
 
-                let xy = value.entries();
-                for (let [user, termin] of xy) {
-                    if (user === r) {
-                        a.push(user, termin)
+                    for (let [user, termin] of xy) {
+
+                        if (user === r) {
+                            a.push(user, termin)
+                        }
+                        if (user === s) {
+                            b.push(user, termin)
+                        }
+                        if (user === f) {
+                            c.push(user, termin)
+                        }
+                        if (user === z) {
+                            d.push(user, termin)
+                        }
                     }
-                    if (user === s) {
-                        b.push(user, termin)
-                    }
-                    if (user === f) {
-                        c.push(user, termin)
-                    }
-                    if (user === z) {
-                        d.push(user, termin)
-                    }
-                }
+
+                    timeArray.push(tag);
 
 
-               timeArray.push(tag)
-
-                for (let x = 0; x < timeArray.length; x++) {
-
-                    let currentDate = timeArray[x];
-                    let nextDate = timeArray[x + 1];
+                    let date = new Date();
+                    let firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+                    let today = new Date(firstDay);
+                    let firstOfMonth = today.getDate();
+                    let firstEntry = timeArray[0];
+                    let firstEmptyFields = firstEntry - firstOfMonth;
+                    let currentDate = timeArray[timeArray.length-2];
+                    let nextDate = timeArray[timeArray.length-1];
                     let diffTage = nextDate - currentDate;
 
+
+                       if (timeArray >0){
+
+                           for (let x = 0; x < firstEmptyFields; x++) {
+
+                               let element = createField('Roberto', "");
+                               row1.appendChild(element);
+                               let element1 = createField('Sebi', "");
+                               row2.appendChild(element1);
+                               let element2 = createField('Fredi', "");
+                               row3.appendChild(element2);
+                               let element3 = createField('Susi', "");
+                               row4.appendChild(element3)
+                           }
+                       }
 
 
                     if (diffTage > 1) {
 
+                        for (let x = 1; x < diffTage; x++) {
 
-                        for (let x = 0; x < diffTage; x++) {
-
-                            let element = createField('Roberto', "", "");
+                            let element = createField('Roberto', "");
                             row1.appendChild(element);
-                            let element1 = createField('Sebi', "", "");
+                            let element1 = createField('Sebi', "");
                             row2.appendChild(element1);
-                            let element2 = createField('Fredi', "", "");
+                            let element2 = createField('Fredi', "");
                             row3.appendChild(element2);
-                            let element3 = createField('Susi', "", "");
+                            let element3 = createField('Susi', "");
                             row4.appendChild(element3)
                         }
-                    } else {
-                        let element = createField('Roberto', value, a);
-                        row1.appendChild(element);
-                        let element1 = createField('Sebi', value, b);
-                        row2.appendChild(element1);
-                        let element2 = createField('Fredi', value, c);
-                        row3.appendChild(element2);
-                        let element3 = createField('Susi', value, d);
-                        row4.appendChild(element3)
                     }
-                }
+
+                        let element = createField('Roberto', a);
+                        row1.appendChild(element);
+                        let element1 = createField('Sebi', b);
+                        row2.appendChild(element1);
+                        let element2 = createField('Fredi', c);
+                        row3.appendChild(element2);
+                        let element3 = createField('Susi', d);
+                        row4.appendChild(element3)
             }
 
+                let lastDay = new Date();
+                let lastday = new Date(lastDay.getFullYear(), lastDay.getMonth() + 1, 0, 23, 59, 59);
+                let end = new Date(lastday);
+                let lastEnd = end.getDate();
 
-            function createField(user, key, data) {
+                let lastEntry = timeArray.pop()
+
+
+                let fillUp = lastEnd - lastEntry;
+                for (let x = 0; x < fillUp; x++) {
+
+                    let element = createField('Roberto', "");
+                    row1.appendChild(element);
+                    let element1 = createField('Sebi', "");
+                    row2.appendChild(element1);
+                    let element2 = createField('Fredi', "");
+                    row3.appendChild(element2);
+                    let element3 = createField('Susi', "");
+                    row4.appendChild(element3)
+                }
+
+
+
+            function createField(user, data) {
                 const element = document.createElement("li");
-                element.innerHTML = key + "<br />" + data;
+                element.innerHTML = data;
                 element.setAttribute("user", user)
                 return element
             }
-
         }
     }
 }
