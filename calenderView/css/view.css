@@ -12,6 +12,14 @@ body {
     max-width: 600px;
 }
 
+#year{
+    visibility: hidden;
+}
+
+#month{
+    cursor: pointer;
+}
+
 #content{
     display: flex;
 }
@@ -27,11 +35,13 @@ body {
     margin: 0;
     padding: 0;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr;
 }
 
 .month ul li {
+    margin: 0 10px;
+    padding: 0 10px;
     color: white;
     font-size: 20px;
     text-transform: uppercase;
@@ -133,6 +143,11 @@ body {
     border: 1px solid #ccc;;
     max-width: 1090px;
     height: 60px;
+}
+
+#days li.weekend {
+    background: #afbc1a;
+    color: white !important;
 }
 
 #days li.active {
