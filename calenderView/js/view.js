@@ -4,7 +4,7 @@ export class View {
 
     constructor() {
 
-        fetch('http://localhost:3000/month/' + 8)
+        fetch('http://localhost:3000/month/' + 4)
             .then(function (response) {
                 return response.json();
             })
@@ -23,7 +23,7 @@ export class View {
             let dayInt = today.getDate();
             let month = today.getMonth();
             let year = today.getFullYear();
-// body of the calendar
+            // body of the calendar
             let calendarBody = document.getElementById("days");
             let row1 = document.getElementById("user1");
             let row2 = document.getElementById("user2");
@@ -54,6 +54,22 @@ export class View {
                 "Samstag"
             ];
 
+        const pickerMonth = datepicker('#month', {
+            startDay: 1,
+            customDays: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
+            customMonths: months,
+            overlayButton: "Auswählen",
+            overlayPlaceholder: "Jahr eingeben",
+            showAllDates: true,
+            onSelect: instance => {
+                month = instance.dateSelected.getMonth();
+                year = instance.dateSelected.getFullYear();
+                showCalendar(month, year);
+            }
+        })
+
+
+
             let nextbtn = document.getElementById("next");
             let prevBtn = document.getElementById("prev");
             nextbtn.onclick = function () {
@@ -64,9 +80,9 @@ export class View {
             };
 
 
-            showCalendar(month, year, dayInt );
+            showCalendar(month, year);
 
-            function showCalendar(month, year, day) {
+            function showCalendar(month, year) {
                 // gets the day of the week for this date
                 let weekday = new Date(year, month).getDay();
                 // clearing all previous cells
@@ -80,30 +96,34 @@ export class View {
                     let cell = document.createElement("li");
 
                         let cellText = document.createTextNode(weekdays[weekday] + " " + day + ". " + months[month]);
-                        if (weekday > 5) {
-                            weekday = 0
-                        } else {
-                            weekday++
+                    if (weekday === 0 || weekday === 6){
+                        cell.classList.add("weekend")
                     }
-
+                    if (weekday > 5){weekday = 0}else{weekday++}
+                    // adding active class if day matches today
                     if (
-                        dayInt === day && month === today.getMonth() && year === today.getFullYear()) {
+                        dayInt === day &&
+                        month === today.getMonth() &&
+                        year === today.getFullYear()
+                    ) {
                         cell.classList.add("active");
                     }
 
-                    cell.setAttribute("data-day", day);
-                    cell.setAttribute("data-month", month);
-                    cell.setAttribute("data-year", year);
+                    //Brauchen wir nicht
+                    // cell.setAttribute("data-day", day);
+                    // cell.setAttribute("data-month", month);
+                    // cell.setAttribute("data-year", year);
 
                     cell.classList.add("singleDay");
                     cell.appendChild(cellText);
 
                     calendarBody.appendChild(cell);
 
+                    pickerMonth.navigate(today);
+
                 }
 
-                document.getElementById("month").innerHTML = months[month];
-                document.getElementById("year").innerHTML = year;
+                document.getElementById("month").innerHTML = months[month] + " " + year;
             }
 
             function daysInMonth(month, year) {
