@@ -1,5 +1,7 @@
-import {View} from "./view.js";
+import {CalenderContent} from "./calenderContent.js";
+import {CalenderBody} from "./calenderBody.js";
 
 
-new View();
+let view = new CalenderContent();
 
+new CalenderBody(view)
