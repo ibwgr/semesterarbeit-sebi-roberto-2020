@@ -27,4 +27,5 @@ VALUES
 ('Susi', 'Kino','2020-04-11'),
 ('Roberto', 'Arbeit','2020-04-11'),
 ('Fredi', 'Frei','2020-04-24'),
-('Roberto', 'Frei','2020-04-25')
+('Roberto', 'Frei','2020-04-25'),
+('Sebi', 'Ausgang','2020-07-25')

@@ -2,8 +2,8 @@
   "type": "mysql",
   "host": "localhost",
   "port": 3306,
-  "username": "java",
-  "password": "java",
+  "username": "root",
+  "password": "salerno84",
   "database": "calender",
   "entities": ["dist/**/*.entity.js"],
   "synchronize": true
