@@ -127,6 +127,9 @@ body {
     font-size: 5px;
 }
 
+#deleteButton {
+  background-color: #528CE0;
+}
 
 
 #next,

@@ -24,9 +24,6 @@ calender(){
     let today = new Date();
     let dayInt = today.getDate();
     let month1 = today.getMonth();
-    let endOfMonth = 0;
-
-    console.log(month1)
 
     this.showMonth(month1);
 
