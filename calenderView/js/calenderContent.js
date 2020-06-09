@@ -1,25 +1,24 @@
 
-
 export class CalenderContent {
 
 
-    constructor() {}
-
-
- removeCalender(){
-     let row1 = document.getElementById("user1");
-     row1.innerText= "";
-     let row2 = document.getElementById("user2");
-     row2.innerText ="";
-     let row3 = document.getElementById("user3");
-     row3.innerText = "";
-     let row4 = document.getElementById("user4");
-     row4.innerText = "";
+    constructor() {
     }
 
 
+    removeCalender() {
+        let row1 = document.getElementById("user1");
+        row1.innerText = "";
+        let row2 = document.getElementById("user2");
+        row2.innerText = "";
+        let row3 = document.getElementById("user3");
+        row3.innerText = "";
+        let row4 = document.getElementById("user4");
+        row4.innerText = "";
+    }
 
- showFamilyCalendar(monat, user1, user2, user3, user4){
+
+    showFamilyCalendar(monat, user1, user2, user3, user4) {
 
 
         fetch('http://localhost:3000/month/' + monat)
@@ -36,10 +35,10 @@ export class CalenderContent {
             });
 
 
-         let row1 = document.getElementById("user1");
-         let row2 = document.getElementById("user2");
-         let row3 = document.getElementById("user3");
-         let row4 = document.getElementById("user4");
+        let row1 = document.getElementById("user1");
+        let row2 = document.getElementById("user2");
+        let row3 = document.getElementById("user3");
+        let row4 = document.getElementById("user4");
 
 
         function appendData(data) {
@@ -53,7 +52,7 @@ export class CalenderContent {
 
             let userMap = new Map(); // neue Map initialisiert für ein user mit event
 
-            for (let x = 0; x < mainContainer.length; x++){
+            for (let x = 0; x < mainContainer.length; x++) {
 
                 let currentEntry = mainContainer[x]; //aktueller Eintrag
                 let nextEntry = mainContainer[x + 1]; // nächster Eintrag
@@ -61,27 +60,25 @@ export class CalenderContent {
                 if (nextEntry && currentEntry.eventdate === nextEntry.eventdate) { //check ob es weitere Events am gleichen Tag gibt
 
                     let user = currentEntry.firstname;
+
                     let event = currentEntry.appointment;
 
                     let eventsForUser = userMap.get(user); //in erster Iteration undefined
 
-                    if (!eventsForUser){
+                    if (!eventsForUser) {
                         eventsForUser = [];  // falls undefinend erstelle neues leeres Array
                     }
 
                     eventsForUser.push(event);  // füge event dem array hinzu
                     userMap.set(user, eventsForUser); // füge alle events für einen User hinzu. (key und value)
-                }
-
-                else {  // falls nächstes Datum unterschiedlich ist => neue map erstellen
+                } else {  // falls nächstes Datum unterschiedlich ist => neue map erstellen
 
                     let user = currentEntry.firstname;
                     let event = currentEntry.appointment;
-
-
                     let eventsForUser = userMap.get(user);
 
-                    if (!eventsForUser){
+
+                    if (!eventsForUser) {
                         eventsForUser = [];
                     }
 
@@ -95,9 +92,10 @@ export class CalenderContent {
             }
 
 
-            if (userMap.size > 0){          // bearbeitung des letzten Eintrags
-                const key = mainContainer[mainContainer.length-1].eventdate;
+            if (userMap.size > 0) {          // bearbeitung des letzten Eintrags
+                const key = mainContainer[mainContainer.length - 1].eventdate;
                 calenderMap.set(key, userMap)
+
             }
 
             let timeArray = [];
@@ -144,40 +142,42 @@ export class CalenderContent {
                 let firstOfMonth = today.getDate();
                 let firstEntry = timeArray[0];
                 let firstEmptyFields = firstEntry - firstOfMonth;
-                let currentDate = timeArray[timeArray.length-2];
-                let nextDate = timeArray[timeArray.length-1];
+                let currentDate = timeArray[timeArray.length - 2];
+                let nextDate = timeArray[timeArray.length - 1];
                 let diffTage = nextDate - currentDate;
 
 
-                if (timeArray >0){
-
-                fillIn(firstEmptyFields)
+                if (timeArray > 0) {
+                    fillIn(firstEmptyFields)
                 }
-
 
                 if (diffTage > 1) {
 
                     for (let x = 1; x < diffTage; x++) {
-
-                        let element = createField(user1, "");
+                        let element = createField("");
                         row1.appendChild(element);
-                        let element1 = createField(user2, "");
+                        let element1 = createField("");
                         row2.appendChild(element1);
-                        let element2 = createField(user3, "");
+                        let element2 = createField("");
                         row3.appendChild(element2);
-                        let element3 = createField(user4, "");
+                        let element3 = createField("");
                         row4.appendChild(element3)
                     }
                 }
 
-                let element = createField(user1, a);
+
+                let element = createField(a.pop());
                 row1.appendChild(element);
-                let element1 = createField(user2, b);
+                element.appendChild(addDeleteButton());
+                let element1 = createField(b.pop());
                 row2.appendChild(element1);
-                let element2 = createField(user3, c);
+                element1.appendChild(addDeleteButton());
+                let element2 = createField(c.pop());
                 row3.appendChild(element2);
-                let element3 = createField(user4, d);
-                row4.appendChild(element3)
+                element2.appendChild(addDeleteButton());
+                let element3 = createField(d.pop());
+                row4.appendChild(element3);
+                element3.appendChild(addDeleteButton());
             }
 
             let lastDay = new Date();
@@ -187,16 +187,30 @@ export class CalenderContent {
 
             let lastEntry = timeArray.pop();
             let fillUp = lastEnd - lastEntry;
-            console.log(lastEnd)
+
+
+            if (calenderMap.size === 0) { // Gitter auffüllen mit leeren Feldern falls es im Monat keine Termine hat
+                fillIn(lastEnd)
+            }
 
             fillIn(fillUp);
 
+            function addDeleteButton() {
+                let button = document.createElement("button");
+                button.id = "deleteButton";
+                button.innerText = "Löschen";
+                button.style.backgroundColor = "green";
 
-            function createField(user, data) {
+                return button
+            }
+
+            function createField(data) {
                 const element = document.createElement("li");
-                element.innerHTML = data;
-                element.setAttribute("user", user)
-                element.classList.add("termine");
+                if (data === undefined){
+                    element.innerHTML = ""
+                }else {
+                    element.innerHTML = data;
+                }
                 return element
             }
 
@@ -204,16 +218,38 @@ export class CalenderContent {
 
                 for (let x = 0; x < input; x++) {
 
-                    let element = createField("", "");
+                    let element = createField("");
                     row1.appendChild(element);
-                    let element1 = createField("", "");
+                    let element1 = createField( "");
                     row2.appendChild(element1);
-                    let element2 = createField("", "");
+                    let element2 = createField("");
                     row3.appendChild(element2);
-                    let element3 = createField("", "");
+                    let element3 = createField("");
                     row4.appendChild(element3)
                 }
             }
         }
     }
+
+
+    addNewAppointment() {
+        //AddItems
+    }
+
+
+    deleteAppointment(date, user, termin) {
+        let button = document.getElementById("deleteButton")
+        button.onclick = function () {
+
+            fetch('https://localhost:3000/events' + id, {
+                method: 'DELETE',
+            })
+                .then(res => res.text()) // or res.json()
+                .then(res => console.log(res))
+
+        }
+
+    }
+
+
 }
