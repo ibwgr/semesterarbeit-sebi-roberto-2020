@@ -3,23 +3,23 @@
 export class CalenderContent {
 
 
-    constructor() {}
-
-
- removeCalender(){
-     let row1 = document.getElementById("user1");
-     row1.innerText= "";
-     let row2 = document.getElementById("user2");
-     row2.innerText ="";
-     let row3 = document.getElementById("user3");
-     row3.innerText = "";
-     let row4 = document.getElementById("user4");
-     row4.innerText = "";
+    constructor() {
     }
 
 
+    removeCalender() {
+        let row1 = document.getElementById("user1");
+        row1.innerText = "";
+        let row2 = document.getElementById("user2");
+        row2.innerText = "";
+        let row3 = document.getElementById("user3");
+        row3.innerText = "";
+        let row4 = document.getElementById("user4");
+        row4.innerText = "";
+    }
 
- showFamilyCalendar(monat, user1, user2, user3, user4){
+
+    showFamilyCalendar(monat, user1, user2, user3, user4, lastDayOfMonth) {
 
 
         fetch('http://localhost:3000/month/' + monat)
@@ -36,10 +36,10 @@ export class CalenderContent {
             });
 
 
-         let row1 = document.getElementById("user1");
-         let row2 = document.getElementById("user2");
-         let row3 = document.getElementById("user3");
-         let row4 = document.getElementById("user4");
+        let row1 = document.getElementById("user1");
+        let row2 = document.getElementById("user2");
+        let row3 = document.getElementById("user3");
+        let row4 = document.getElementById("user4");
 
 
         function appendData(data) {
@@ -53,7 +53,7 @@ export class CalenderContent {
 
             let userMap = new Map(); // neue Map initialisiert für ein user mit event
 
-            for (let x = 0; x < mainContainer.length; x++){
+            for (let x = 0; x < mainContainer.length; x++) {
 
                 let currentEntry = mainContainer[x]; //aktueller Eintrag
                 let nextEntry = mainContainer[x + 1]; // nächster Eintrag
@@ -65,15 +65,13 @@ export class CalenderContent {
 
                     let eventsForUser = userMap.get(user); //in erster Iteration undefined
 
-                    if (!eventsForUser){
+                    if (!eventsForUser) {
                         eventsForUser = [];  // falls undefinend erstelle neues leeres Array
                     }
 
                     eventsForUser.push(event);  // füge event dem array hinzu
                     userMap.set(user, eventsForUser); // füge alle events für einen User hinzu. (key und value)
-                }
-
-                else {  // falls nächstes Datum unterschiedlich ist => neue map erstellen
+                } else {  // falls nächstes Datum unterschiedlich ist => neue map erstellen
 
                     let user = currentEntry.firstname;
                     let event = currentEntry.appointment;
@@ -81,7 +79,7 @@ export class CalenderContent {
 
                     let eventsForUser = userMap.get(user);
 
-                    if (!eventsForUser){
+                    if (!eventsForUser) {
                         eventsForUser = [];
                     }
 
@@ -95,8 +93,8 @@ export class CalenderContent {
             }
 
 
-            if (userMap.size > 0){          // bearbeitung des letzten Eintrags
-                const key = mainContainer[mainContainer.length-1].eventdate;
+            if (userMap.size > 0) {          // bearbeitung des letzten Eintrags
+                const key = mainContainer[mainContainer.length - 1].eventdate;
                 calenderMap.set(key, userMap)
             }
 
@@ -144,14 +142,14 @@ export class CalenderContent {
                 let firstOfMonth = today.getDate();
                 let firstEntry = timeArray[0];
                 let firstEmptyFields = firstEntry - firstOfMonth;
-                let currentDate = timeArray[timeArray.length-2];
-                let nextDate = timeArray[timeArray.length-1];
+                let currentDate = timeArray[timeArray.length - 2];
+                let nextDate = timeArray[timeArray.length - 1];
                 let diffTage = nextDate - currentDate;
 
 
-                if (timeArray >0){
+                if (timeArray > 0) {
 
-                fillIn(firstEmptyFields)
+                    fillIn(firstEmptyFields)
                 }
 
 
@@ -170,7 +168,7 @@ export class CalenderContent {
                     }
                 }
 
-                let element = createField(user1, a);
+                let element = createField(user1, a)
                 row1.appendChild(element);
                 let element1 = createField(user2, b);
                 row2.appendChild(element1);
@@ -187,16 +185,17 @@ export class CalenderContent {
 
             let lastEntry = timeArray.pop();
             let fillUp = lastEnd - lastEntry;
-            console.log(lastEnd)
+
+            if (timeArray.length === 0) { // Gitter auffüllen mit leeren Feldern falls es im Monat keine Termine hat
+                fillIn(lastEnd)
+            }
 
             fillIn(fillUp);
-
 
             function createField(user, data) {
                 const element = document.createElement("li");
                 element.innerHTML = data;
-                element.setAttribute("user", user)
-                element.classList.add("termine");
+                element.setAttribute("user", user);
                 return element
             }
 
@@ -216,4 +215,17 @@ export class CalenderContent {
             }
         }
     }
+
+
+    addNewAppointment() {
+        //AddItems
+    }
+
+
+    deleteAppointment() {
+        //deleteItems
+
+    }
+
+
 }

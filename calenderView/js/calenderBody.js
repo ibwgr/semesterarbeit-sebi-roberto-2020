@@ -1,4 +1,5 @@
 
+
 export class CalenderBody {
 
 
@@ -9,8 +10,13 @@ export class CalenderBody {
     }
 
     showMonth(monat){
+        let user1 = document.getElementById("username1").innerHTML;
+        let user2 = document.getElementById("username2").innerHTML;
+        let user3 = document.getElementById("username3").innerHTML;
+        let user4 = document.getElementById("username4").innerHTML;
 
-        this.view.showFamilyCalendar(monat-1, "Roberto", "Sebi", "Fredi", "Susi");
+        this.view.showFamilyCalendar(monat-1, user1, user2, user3, user4);
+
     }
 
 calender(){
@@ -18,8 +24,12 @@ calender(){
     let today = new Date();
     let dayInt = today.getDate();
     let month1 = today.getMonth();
+    let endOfMonth = 0;
+
+    console.log(month1)
 
     this.showMonth(month1);
+
     let year1 = today.getFullYear();
     let calendarBody = document.getElementById("days");
     let weekday = new Date(year1, month1).getDay();
@@ -62,26 +72,36 @@ calender(){
     let prevBtn = document.getElementById("prev");
 
     nextbtn.onclick = function () {
-       this.view.removeCalender()
+       this.view.removeCalender();
         nextMonth();
-        this.view.showFamilyCalendar(month1+1, "Roberto", "Sebi", "Fredi", "Susi")
+        let user1 = document.getElementById("username1").innerHTML;
+        let user2 = document.getElementById("username2").innerHTML;
+        let user3 = document.getElementById("username3").innerHTML;
+        let user4 = document.getElementById("username4").innerHTML;
+        this.view.showFamilyCalendar(month1+1, user1, user2, user3, user4)
+
     }.bind({view: this.view});
 
 
     prevBtn.onclick = function () {
-        this.view.removeCalender()
+        this.view.removeCalender();
         previousMonth();
-        this.view.showFamilyCalendar(month1+1, "Roberto", "Sebi", "Fredi", "Susi")
+        let user1 = document.getElementById("username1").innerHTML;
+        let user2 = document.getElementById("username2").innerHTML;
+        let user3 = document.getElementById("username3").innerHTML;
+        let user4 = document.getElementById("username4").innerHTML;
+        this.view.showFamilyCalendar(month1+1, user1, user2, user3, user4)
     }.bind({view: this.view});
 
 
 
-    showCalendar(month1, year1)
+    showCalendar(month1, year1);
 
 
    function showCalendar(month, year) {
 
        let totalDays = daysInMonth(month1, year1);
+
        calendarBody.innerHTML = "";
 
         function daysInMonth(month, year) {
@@ -92,7 +112,7 @@ calender(){
         for (let day = 1; day <= totalDays; day++) {
 
             let cell = document.createElement("li");
-            let cellText = document.createTextNode(weekdays[weekday] + " " + day + ". " + months[month1]);
+            let cellText = document.createTextNode(weekdays[weekday] + " " + day + ".  " + months[month1]);
             if (weekday === 0 || weekday === 6){
                 cell.classList.add("weekend")
             }
@@ -113,6 +133,7 @@ calender(){
         }
 
         document.getElementById("month").innerHTML = months[month1] + " " + year1;
+
     }
 
     function nextMonth() {
@@ -122,10 +143,9 @@ calender(){
     }
 
     function previousMonth() {
-
-        year1 = month1 === 0 ? year1 - 1 : year1;
-        month1 = month1 === 0 ? 11 : month1 - 1;
-        showCalendar(year1, month1)
+       year1 = month1 === 0 ? year1 - 1 : year1;
+       month1 = month1 === 0 ? 11 : month1 - 1;
+       showCalendar(year1, month1)
     }
     }
 }

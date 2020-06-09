@@ -51,7 +51,7 @@ body {
 
 #weekdays {
     margin: 0;
-    width: 170px;
+    width: 70px;
     background-color: #ddd;
     float: left;
 }
@@ -66,84 +66,43 @@ body {
 #days {
     background: #eee;
     margin: 0;
-    width: 280px;
 }
 
 #days li {
     list-style-type: none;
-    text-align: left;
+    text-align: center;
     font-size: 16px;
     color: #777;
     border: 1px solid #ccc;;
-    max-width: 990px;
-    height: 60px;
+    height: 80px;
+    padding: 20px;
+    min-width: 80px;
   }
 
 
-#user1 {
+#username1, #username2, #username3, #username4 {
+    width: 280px;
+    margin-left: 200px;
+}
+
+#user1, #user2, #user3, #user4 {
     background: #eee;
     margin: 0;
     width: 680px;
 }
 
-#user2 {
-    background: #eee;
-    margin: 0;
-    width: 680px;
-}
-
-#user3 {
-    background: #eee;
-    margin: 0;
-    width: 680px;
-}
-
-#user4 {
-    background: #eee;
-    margin: 0;
-    width: 680px;
-}
-
-#user1 li {
+#user1 li, #user2 li, #user3 li, #user4 li {
     list-style-type: none;
     text-align: center;
     font-size: 16px;
+    padding: 20px;
     color: #777;
     border: 1px solid #ccc;;
     max-width: 1090px;
-    height: 60px;
+    height: 80px;
+    min-width: 100px;
 }
 
-
-#user2 li {
-    list-style-type: none;
-    text-align: center;
-    font-size: 16px;
-    color: #777;
-    border: 1px solid #ccc;;
-    max-width: 1090px;
-    height: 60px;
-}
-
-#user3 li {
-    list-style-type: none;
-    text-align: center;
-    font-size: 16px;
-    color: #777;
-    border: 1px solid #ccc;;
-    max-width: 1090px;
-    height: 60px;
-}
-
-#user4 li {
-    list-style-type: none;
-    text-align: center;
-    font-size: 16px;
-    color: #777;
-    border: 1px solid #ccc;;
-    max-width: 1090px;
-    height: 60px;
-}
 
 #days li.weekend {
     background: #afbc1a;
@@ -154,6 +113,21 @@ body {
     background: #1abc9c;
     color: white !important;
 }
+
+
+#usernames {
+    display: flex;
+    background-color: #000066;
+    height: 60px;
+    color: white;
+    min-width: 1000px
+}
+
+#trash {
+    font-size: 5px;
+}
+
+
 
 #next,
 #prev {
@@ -185,22 +159,59 @@ body {
 }
 
 
+.footer {
+    height: 100px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    margin: auto;
+    padding-top: 35px;
+}
+
+
 /* Add media queries for smaller screens */
-@media screen and (max-width: 720px) {
+@media screen and (max-width: 768px) {
     .weekdays li,
-    #days li {
-        width: 13.1%;
+    #days li, #user1 li, #user2 li, #user3 li, #user4 li{
+        width: 70.5%;
+        font-size: 13px;
+    }
+    #days li .active {
+        padding: 2px;
+    }
+    #placeholder, #username1, #username2, #username3, #username4 {
+        width: 180px;
+        margin-left: 20px;
+        font-size: 15px;
+    }
+    #usernames{
+        height: 50%;
     }
 }
 
 @media screen and (max-width: 420px) {
     .weekdays li,
-    #days li {
+    #days li, #user1 li, #user2 li, #user3 li, #user4 li{
         width: 12.5%;
+        font-size: 10px;
     }
+
+    #calendar {
+        width: auto;
+    }
+
     #days li .active {
         padding: 2px;
     }
+    #placeholder, #username1, #username2, #username3, #username4 {
+        margin-left: 20px;
+        font-size: 10px;
+    }
+    #usernames{
+        height: 50%;
+    }
+
 }
 
 
