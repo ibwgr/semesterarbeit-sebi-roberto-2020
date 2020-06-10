@@ -3,6 +3,7 @@ export class CalenderContent {
 
 
     constructor() {
+
     }
 
 
@@ -60,17 +61,17 @@ export class CalenderContent {
                 if (nextEntry && currentEntry.eventdate === nextEntry.eventdate) { //check ob es weitere Events am gleichen Tag gibt
 
                     let user = currentEntry.firstname;
-
                     let event = currentEntry.appointment;
-
                     let eventsForUser = userMap.get(user); //in erster Iteration undefined
 
                     if (!eventsForUser) {
                         eventsForUser = [];  // falls undefinend erstelle neues leeres Array
                     }
 
-                    eventsForUser.push(event);  // füge event dem array hinzu
+                    eventsForUser.push({id: currentEntry, description: event});
+                    // füge event dem array hinzu
                     userMap.set(user, eventsForUser); // füge alle events für einen User hinzu. (key und value)
+
                 } else {  // falls nächstes Datum unterschiedlich ist => neue map erstellen
 
                     let user = currentEntry.firstname;
@@ -82,11 +83,9 @@ export class CalenderContent {
                         eventsForUser = [];
                     }
 
-                    eventsForUser.push(event);
+                    eventsForUser.push({id: currentEntry, description: event});
                     userMap.set(user, eventsForUser);
-
                     calenderMap.set(currentEntry.eventdate, userMap); // setze key und value für haupt-map
-
                     userMap = new Map(); // neue userMap für neues Datum wird initialisiert.
                 }
             }
@@ -95,12 +94,12 @@ export class CalenderContent {
             if (userMap.size > 0) {          // bearbeitung des letzten Eintrags
                 const key = mainContainer[mainContainer.length - 1].eventdate;
                 calenderMap.set(key, userMap)
-
             }
 
             let timeArray = [];
 
             for (let [key, value] of calenderMap.entries()) {
+
 
                 let r = user1;
                 let s = user2;
@@ -119,22 +118,31 @@ export class CalenderContent {
 
                 for (let [user, termin] of xy) {
 
-                    if (user === r) {
-                        a.push(user, termin)
-                    }
-                    if (user === s) {
-                        b.push(user, termin)
-                    }
-                    if (user === f) {
-                        c.push(user, termin)
-                    }
-                    if (user === z) {
-                        d.push(user, termin)
-                    }
+                    function pushItems(users) {
+
+                        termin.forEach((val, key)=>{
+                            let appointment = termin[key].description;
+                            let identifier = termin[key].id.id;
+                            let object = {meet: appointment, nr: identifier}
+                            users.push(object)
+                    })
                 }
 
-                timeArray.push(tag);
+                    if (user === r) {
+                        pushItems(a)
+                    }
+                    if (user === s) {
+                        pushItems(b)
+                    }
+                    if (user === f) {
+                        pushItems(c)
+                    }
+                    if (user === z) {
+                        pushItems(d)
+                }}
 
+
+                timeArray.push(tag);
 
                 let date = new Date();
                 let firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
@@ -154,30 +162,44 @@ export class CalenderContent {
                 if (diffTage > 1) {
 
                     for (let x = 1; x < diffTage; x++) {
-                        let element = createField("");
+                        let element = createField("", "");
                         row1.appendChild(element);
-                        let element1 = createField("");
+                        let element1 = createField("", "");
                         row2.appendChild(element1);
-                        let element2 = createField("");
+                        let element2 = createField("", "");
                         row3.appendChild(element2);
-                        let element3 = createField("");
+                        let element3 = createField("", "");
                         row4.appendChild(element3)
                     }
                 }
 
 
-                let element = createField(a.pop());
+                let a2 = a.map(function(e) {
+                    return e.nr
+                });
+                let b2 = b.map(function(e) {
+                    return e.nr
+                });
+                let c2 = c.map(function(e) {
+                    return e.nr
+                });
+                let d2 = d.map(function(e) {
+                    return e.nr
+                });
+
+
+                let element = createField(a, a2);
                 row1.appendChild(element);
-                element.appendChild(addDeleteButton());
-                let element1 = createField(b.pop());
+                //element.appendChild(addDeleteButton(a2));
+                let element1 = createField(b, b2);
                 row2.appendChild(element1);
-                element1.appendChild(addDeleteButton());
-                let element2 = createField(c.pop());
+               // element1.appendChild(addDeleteButton(b2));
+                let element2 = createField(c, c2);
                 row3.appendChild(element2);
-                element2.appendChild(addDeleteButton());
-                let element3 = createField(d.pop());
+              //  element2.appendChild(addDeleteButton(c2));
+                let element3 = createField(d, d2);
                 row4.appendChild(element3);
-                element3.appendChild(addDeleteButton());
+              //  element3.appendChild(addDeleteButton(d2));
             }
 
             let lastDay = new Date();
@@ -195,22 +217,46 @@ export class CalenderContent {
 
             fillIn(fillUp);
 
-            function addDeleteButton() {
+            function createField(data, id) {
+
+                const element = document.createElement("li");
+
                 let button = document.createElement("button");
-                button.id = "deleteButton";
+                button.classList.add("button");
+                button.setAttribute("id", id);
                 button.innerText = "Löschen";
                 button.style.backgroundColor = "green";
 
-                return button
-            }
+                button.onclick = function () {
 
-            function createField(data) {
-                const element = document.createElement("li");
-                if (data === undefined){
-                    element.innerHTML = ""
-                }else {
-                    element.innerHTML = data;
+                    fetch('http://localhost:3000/events/' + id, {
+                        method: 'DELETE',
+                    })
+                        .then(res => res.json())
+                        .catch((error)=>{
+                            console.log(error)
+                        });
+                    location.reload()
+                };
+
+
+                if (button.id === ""){
+                    button.style.display = "none"
                 }
+                else {
+
+                   let a = [];
+
+                    for (let x =0; x < data.length; x++){
+
+                        a.push(data[x].meet);
+                    }
+
+                    element.innerHTML = a;
+                    element.appendChild(button.cloneNode(true));
+                    button.id = id
+                }
+
                 return element
             }
 
@@ -218,38 +264,16 @@ export class CalenderContent {
 
                 for (let x = 0; x < input; x++) {
 
-                    let element = createField("");
+                    let element = createField("", "");
                     row1.appendChild(element);
-                    let element1 = createField( "");
+                    let element1 = createField( "", "");
                     row2.appendChild(element1);
-                    let element2 = createField("");
+                    let element2 = createField("", "");
                     row3.appendChild(element2);
-                    let element3 = createField("");
+                    let element3 = createField("", "");
                     row4.appendChild(element3)
                 }
             }
         }
     }
-
-
-    addNewAppointment() {
-        //AddItems
-    }
-
-
-    deleteAppointment(date, user, termin) {
-        let button = document.getElementById("deleteButton")
-        button.onclick = function () {
-
-            fetch('https://localhost:3000/events' + id, {
-                method: 'DELETE',
-            })
-                .then(res => res.text()) // or res.json()
-                .then(res => console.log(res))
-
-        }
-
-    }
-
-
 }

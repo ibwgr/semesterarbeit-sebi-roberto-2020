@@ -15,7 +15,7 @@ export class CalenderBody {
         let user3 = document.getElementById("username3").innerHTML;
         let user4 = document.getElementById("username4").innerHTML;
 
-        this.view.showFamilyCalendar(monat-1, user1, user2, user3, user4);
+        this.view.showFamilyCalendar(monat+1, user1, user2, user3, user4);
 
     }
 
