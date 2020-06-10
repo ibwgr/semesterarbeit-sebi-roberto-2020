@@ -252,7 +252,7 @@ export class CalenderContent {
                     }
 
                     element.innerHTML = a;
-                    element.appendChild(button.cloneNode(true));
+                    element.appendChild(button);
                     button.id = id
                 }
                 return element
@@ -339,21 +339,4 @@ export class CalenderContent {
             });
         location.reload()
     }
-
-
-    deleteAppointment(date, user, termin) {
-        let button = document.getElementById("deleteButton")
-        button.onclick = function () {
-
-            fetch('https://localhost:3000/events' + id, {
-                method: 'DELETE',
-            })
-                .then(res => res.text()) // or res.json()
-                .then(res => console.log(res))
-
-        }
-
-    }
-
-
 }
