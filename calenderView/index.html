@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Familienplaner</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="css/view.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" href="css/datepicker.min.css">
 </head>
 <body>
@@ -24,8 +24,8 @@
                 <select name="person" id="person"></select>
             </div>
             <div>
-                <input type="button" value="Zurück" onclick="myFunction()">
-                <input type="button" value="Speichern" onclick="alert('Jetzt würde gespeichert werden :)'); myFunction()">
+                <input type="button" id="back" value="Zurück"">
+                <input type="button" id="saveData" value="Speichern">
             </div>
         </div>
     </div>
@@ -40,7 +40,7 @@
             <li id="next">&#10095;</li>
         </ul>
     </div>
-    <div> <input type="button" value="Neuer Eintrag" onclick="myFunction()"></div>
+    <div> <input type="button" id="showModal"value="Neuer Eintrag"></div>
 
 
     <ul id="usernames">
@@ -72,12 +72,5 @@
 
 <script type="module" src="js/app.js"></script>
 <script src="js/datepicker.min.js"></script>
-<script>
-    //Dieses Script ist nur um den Modal zu toggeln bis der code dann entgültig stimmt :)
-    function myFunction() {
-        let element = document.getElementById("modal");
-        element.classList.toggle("hide");
-    }
-</script>
 </body>
 </html>

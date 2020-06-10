@@ -7,6 +7,12 @@ export class CalenderBody {
 
         this.view = view;
         this.calender();
+        const newEntry = document.getElementById("showModal");
+        this.showModal(newEntry);
+        const saveData = document.getElementById("saveData");
+        this.saveEntry(saveData);
+        const backToCalender = document.getElementById("back");
+        this.backToCalender(backToCalender);
     }
 
     showMonth(monat){
@@ -19,7 +25,7 @@ export class CalenderBody {
 
     }
 
-calender(){
+    calender(){
 
     let today = new Date();
     let dayInt = today.getDate();
@@ -63,6 +69,7 @@ calender(){
         onSelect: instance => {
             month1 = instance.dateSelected.getMonth();
             year1 = instance.dateSelected.getFullYear();
+
         }
     });
     let nextbtn = document.getElementById("next");
@@ -145,4 +152,40 @@ calender(){
        showCalendar(year1, month1)
     }
     }
+
+
+    showModal(button){
+        button.addEventListener('click', function () {
+            let element = document.getElementById("modal");
+            element.classList.toggle("hide");
+            this.view.listUser();
+        }.bind({view: this.view}))
+    }
+
+    saveEntry(button){
+        button.addEventListener('click', function () {
+            this.view.addNewAppointment();
+
+            // Select Liste leeren
+            const selectElement = document.getElementById("person");
+            while (selectElement.length > 0){
+                selectElement.remove(0);
+            }
+            document.getElementById("modal").classList.toggle("hide");
+        }.bind({view: this.view}))
+    }
+
+    backToCalender(button){
+        button.addEventListener('click', function () {
+            // Select Liste leeren
+            const selectElement = document.getElementById("person");
+            while (selectElement.length > 0){
+                selectElement.remove(0);
+            }
+            document.getElementById("modal").classList.toggle("hide");
+        }.bind({view: this.view}))
+    }
+
+
 }
+
