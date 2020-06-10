@@ -49,7 +49,6 @@ export class CalenderContent {
                 mainContainer.push(data[i]);
             }
 
-
             let userMap = new Map(); // neue Map initialisiert für ein user mit event
 
             for (let x = 0; x < mainContainer.length; x++) {
@@ -232,8 +231,68 @@ export class CalenderContent {
     }
 
 
+
+    listUser(){
+
+        fetch('http://localhost:3000/names')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (datanames) {
+
+
+                // Array nur mit den Namen
+                let gleich = datanames.map(x => Object.values(x))
+
+                // Set erstellen um jeden Namen nur einmal zu haben
+                let set = new Set();
+                gleich.map(x => set.add(x.toString()))
+
+                // Select-Liste mit den Namen füllen
+                let lstName = document.getElementById("person");
+                set.forEach(function (item) {
+                    let lstOption = document.createElement("OPTION");
+                    lstName.options.add(lstOption);
+                    lstOption.textContent = item;
+                    lstOption.nodeValue = item;
+                    lstName.add(lstOption);
+                })
+
+            })
+            .catch(function (err) {
+                console.log('error: ' + err);
+            });
+
+
+        }
+
+
     addNewAppointment() {
-        //AddItems
+
+        // Eingaben aus dem Modal auslesen
+        let termin = document.getElementById("termin").value;
+        let date = document.getElementById("date").value;
+        let person = document.getElementById("person").value;
+
+        // Objekt bilden -> Wird im fetch zu json umgewandelt
+        var event = {};
+        event.firstname = person;
+        event.appointment = termin;
+        event.eventdate = date;
+
+        // Übermitteln
+        fetch('http://localhost:3000/create', {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(event)
+        })
+            .then (function (response) {
+            return response.json();
+            })
+            .catch (function (err) {
+                console.log('error: ' + err);
+            });
+        location.reload()
     }
 
 
