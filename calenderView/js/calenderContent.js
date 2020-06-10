@@ -318,6 +318,13 @@ export class CalenderContent {
         let termin = document.getElementById("termin").value;
         let date = document.getElementById("date").value;
         let person = document.getElementById("person").value;
+        if(termin === ""){
+            alert("Ungültige Eingabe")
+        }else if(date === ""){
+            alert("Ungültige Eingabe")
+        }else if(person === ""){
+            alert("Ungültige Eingabe")
+        }else{
 
         // Objekt bilden -> Wird im fetch zu json umgewandelt
         var event = {};
@@ -336,7 +343,7 @@ export class CalenderContent {
             })
             .catch (function (err) {
                 console.log('error: ' + err);
-            });
+            });}
         location.reload()
     }
 }
