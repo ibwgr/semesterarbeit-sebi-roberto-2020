@@ -1,0 +1,18 @@
+{
+  "name": "calenderview",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/calendar/index.html",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "npm run test",
+    "start": "NODE_ENV=development rm -rf .cache && npx parcel ${DIR:-src}/calendar/index.html"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mocha": "^8.0.0"
+  }
+}
