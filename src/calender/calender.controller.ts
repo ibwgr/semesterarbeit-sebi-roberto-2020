@@ -15,12 +15,12 @@ export class CalenderController {
     }
 
     @Get('events/:id')
-    findOne(@Param('id') id: string): any {
+    findOne(@Param('id') id: number): any {
         return this.calenderService.findOne(id)
     }
 
     @Delete('events/:id')
-    remove(@Param('id')id:string):any{
+    remove(@Param('id')id:number):any{
         return this.calenderService.remove(id)
     }
 

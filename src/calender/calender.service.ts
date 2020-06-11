@@ -36,11 +36,11 @@ export class CalenderService {
         return this.calenderRepository.find();
     }
 
-    findOne(id: string):Promise<Familycalender>{
+    findOne(id: number):Promise<Familycalender>{
         return this.calenderRepository.findOne(id)
     }
 
-    async remove(id:string): Promise<void>{
+    async remove(id:number): Promise<void>{
         await this.calenderRepository.delete(id)
     }
 

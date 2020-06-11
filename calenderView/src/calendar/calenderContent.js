@@ -2,9 +2,7 @@
 export class CalenderContent {
 
 
-    constructor() {
-
-    }
+    constructor() {}
 
 
     removeCalender() {
@@ -186,19 +184,14 @@ export class CalenderContent {
                     return e.nr
                 });
 
-
                 let element = createField(a, a2);
                 row1.appendChild(element);
-                //element.appendChild(addDeleteButton(a2));
                 let element1 = createField(b, b2);
                 row2.appendChild(element1);
-               // element1.appendChild(addDeleteButton(b2));
                 let element2 = createField(c, c2);
                 row3.appendChild(element2);
-              //  element2.appendChild(addDeleteButton(c2));
                 let element3 = createField(d, d2);
                 row4.appendChild(element3);
-              //  element3.appendChild(addDeleteButton(d2));
             }
 
             let lastDay = new Date();
@@ -222,6 +215,7 @@ export class CalenderContent {
 
                 let button = document.createElement("button");
                 button.classList.add("button");
+
                 button.setAttribute("id", id);
                 button.innerText = "Löschen";
                 button.style.backgroundColor = "green";
@@ -238,14 +232,11 @@ export class CalenderContent {
                     location.reload()
                 };
 
-
                 if (button.id === ""){
                     button.style.display = "none"
                 }
                 else {
-
                    let a = [];
-
                     for (let x =0; x < data.length; x++){
 
                         a.push(data[x].meet);
@@ -257,6 +248,8 @@ export class CalenderContent {
                 }
                 return element
             }
+
+
 
             function fillIn(input) {
 
@@ -307,8 +300,6 @@ export class CalenderContent {
             .catch(function (err) {
                 console.log('error: ' + err);
             });
-
-
         }
 
 
@@ -325,6 +316,15 @@ export class CalenderContent {
         }else if(person === ""){
             alert("Ungültige Eingabe")
         }else{
+
+        if(termin === ""){
+            alert("Ungültige Eingabe")
+        }else if(date === ""){
+            alert("Ungültige Eingabe")
+        }else if(person === ""){
+            alert("Ungültige Eingabe")
+        }else{
+
 
         // Objekt bilden -> Wird im fetch zu json umgewandelt
         var event = {};
