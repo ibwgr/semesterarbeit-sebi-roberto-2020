@@ -59,7 +59,7 @@ export class CalenderBody {
         "Freitag",
         "Samstag"
     ];
-    const pickerMonth = datepicker('#month', {
+/*    const pickerMonth = datepicker('#month', {
         startDay: 1,
         customDays: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
         customMonths: months,
@@ -71,7 +71,7 @@ export class CalenderBody {
             year1 = instance.dateSelected.getFullYear();
 
         }
-    });
+    });*/
     let nextbtn = document.getElementById("next");
     let prevBtn = document.getElementById("prev");
 
@@ -133,7 +133,6 @@ export class CalenderBody {
             cell.classList.add("singleDay");
             cell.appendChild(cellText);
             calendarBody.appendChild(cell);
-            pickerMonth.navigate(today);
         }
 
         document.getElementById("month").innerHTML = months[month1] + " " + year1;
