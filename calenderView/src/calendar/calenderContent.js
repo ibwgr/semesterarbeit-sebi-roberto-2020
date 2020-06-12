@@ -2,7 +2,8 @@
 export class CalenderContent {
 
 
-    constructor() {}
+    constructor() {
+    }
 
 
     removeCalender() {
@@ -117,13 +118,13 @@ export class CalenderContent {
 
                     function pushItems(users) {
 
-                        termin.forEach((val, key)=>{
+                        termin.forEach((val, key) => {
                             let appointment = termin[key].description;
                             let identifier = termin[key].id.id;
                             let object = {meet: appointment, nr: identifier}
                             users.push(object)
-                    })
-                }
+                        })
+                    }
 
                     if (user === r) {
                         pushItems(a)
@@ -136,7 +137,8 @@ export class CalenderContent {
                     }
                     if (user === z) {
                         pushItems(d)
-                }}
+                    }
+                }
 
 
                 timeArray.push(tag);
@@ -171,16 +173,16 @@ export class CalenderContent {
                 }
 
 
-                let a2 = a.map(function(e) {
+                let a2 = a.map(function (e) {
                     return e.nr
                 });
-                let b2 = b.map(function(e) {
+                let b2 = b.map(function (e) {
                     return e.nr
                 });
-                let c2 = c.map(function(e) {
+                let c2 = c.map(function (e) {
                     return e.nr
                 });
-                let d2 = d.map(function(e) {
+                let d2 = d.map(function (e) {
                     return e.nr
                 });
 
@@ -226,18 +228,17 @@ export class CalenderContent {
                         method: 'DELETE',
                     })
                         .then(res => res.json())
-                        .catch((error)=>{
+                        .catch((error) => {
                             console.log(error)
                         });
                     location.reload()
                 };
 
-                if (button.id === ""){
+                if (button.id === "") {
                     button.style.display = "none"
-                }
-                else {
-                   let a = [];
-                    for (let x =0; x < data.length; x++){
+                } else {
+                    let a = [];
+                    for (let x = 0; x < data.length; x++) {
 
                         a.push(data[x].meet);
                     }
@@ -250,14 +251,13 @@ export class CalenderContent {
             }
 
 
-
             function fillIn(input) {
 
                 for (let x = 0; x < input; x++) {
 
                     let element = createField("", "");
                     row1.appendChild(element);
-                    let element1 = createField( "", "");
+                    let element1 = createField("", "");
                     row2.appendChild(element1);
                     let element2 = createField("", "");
                     row3.appendChild(element2);
@@ -268,39 +268,38 @@ export class CalenderContent {
         }
     }
 
-
-
-    listUser(){
-
-        fetch('http://localhost:3000/names')
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (datanames) {
-
-
-                // Array nur mit den Namen
-                let gleich = datanames.map(x => Object.values(x))
-
-                // Set erstellen um jeden Namen nur einmal zu haben
-                let set = new Set();
-                gleich.map(x => set.add(x.toString()))
-
-                // Select-Liste mit den Namen füllen
-                let lstName = document.getElementById("person");
-                set.forEach(function (item) {
-                    let lstOption = document.createElement("OPTION");
-                    lstName.options.add(lstOption);
-                    lstOption.textContent = item;
-                    lstOption.nodeValue = item;
-                    lstName.add(lstOption);
-                })
-
-            })
-            .catch(function (err) {
-                console.log('error: ' + err);
-            });
-        }
+    // // Wird nicht mehr benötig ist ersetzt durch get users Zeile 352
+    // listUser() {
+    //
+    //     fetch('http://localhost:3000/names')
+    //         .then(function (response) {
+    //             return response.json();
+    //         })
+    //         .then(function (datanames) {
+    //
+    //
+    //             // Array nur mit den Namen
+    //             let gleich = datanames.map(x => Object.values(x))
+    //
+    //             // Set erstellen um jeden Namen nur einmal zu haben
+    //             let set = new Set();
+    //             gleich.map(x => set.add(x.toString()))
+    //
+    //             // Select-Liste mit den Namen füllen
+    //             let lstName = document.getElementById("person");
+    //             set.forEach(function (item) {
+    //                 let lstOption = document.createElement("OPTION");
+    //                 lstName.options.add(lstOption);
+    //                 lstOption.textContent = item;
+    //                 lstOption.nodeValue = item;
+    //                 lstName.add(lstOption);
+    //             })
+    //
+    //         })
+    //         .catch(function (err) {
+    //             console.log('error: ' + err);
+    //         });
+    // }
 
 
     addNewAppointment() {
@@ -309,34 +308,51 @@ export class CalenderContent {
         let termin = document.getElementById("termin").value;
         let date = document.getElementById("date").value;
         let person = document.getElementById("person").value;
-
-        if(termin === ""){
+        if (termin === "") {
             alert("Ungültige Eingabe")
-        }else if(date === ""){
+        } else if (date === "") {
             alert("Ungültige Eingabe")
-        }else if(person === ""){
+        } else if (person === "") {
             alert("Ungültige Eingabe")
-        }else{
+        } else {
+
+            if (termin === "") {
+                alert("Ungültige Eingabe")
+            } else if (date === "") {
+                alert("Ungültige Eingabe")
+            } else if (person === "") {
+                alert("Ungültige Eingabe")
+            } else {
 
 
-        // Objekt bilden -> Wird im fetch zu json umgewandelt
-        var event = {};
-        event.firstname = person;
-        event.appointment = termin;
-        event.eventdate = date;
+                // Objekt bilden -> Wird im fetch zu json umgewandelt
+                var event = {};
+                event.firstname = person;
+                event.appointment = termin;
+                event.eventdate = date;
 
-        // Übermitteln
-        fetch('http://localhost:3000/create', {
-            method: "POST",
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(event)
-        })
-            .then (function (response) {
-            return response.json();
-            })
-            .catch (function (err) {
-                console.log('error: ' + err);
-            });}
-        location.reload()
+                // Übermitteln
+                fetch('http://localhost:3000/create', {
+                    method: "POST",
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(event)
+                })
+                    .then(function (response) {
+                        return response.json();
+                    })
+                    .catch(function (err) {
+                        console.log('error: ' + err);
+                    });
+            }
+            location.reload()
+        }
     }
+
+    // wichtig get voranstellen
+    get users() {
+        // nur den fetch machen und diesen zurück geben
+        return fetch('http://localhost:3000/names')
+        // der Rest .then.... befindet sich in calenderBody wo der fetch aufgerufen wird Zeile 162 und folgende
+    }
+
 }
