@@ -270,67 +270,14 @@ export class CalenderContent {
 
 
 
-    listUser(){
+    get listUser(){
 
-        fetch('http://localhost:3000/names')
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (datanames) {
+        return fetch('http://localhost:3000/names')
 
-
-                // Array nur mit den Namen
-                let gleich = datanames.map(x => Object.values(x))
-
-                // Set erstellen um jeden Namen nur einmal zu haben
-                let set = new Set();
-                gleich.map(x => set.add(x.toString()))
-
-                // Select-Liste mit den Namen füllen
-                let lstName = document.getElementById("person");
-                set.forEach(function (item) {
-                    let lstOption = document.createElement("OPTION");
-                    lstName.options.add(lstOption);
-                    lstOption.textContent = item;
-                    lstOption.nodeValue = item;
-                    lstName.add(lstOption);
-                })
-
-            })
-            .catch(function (err) {
-                console.log('error: ' + err);
-            });
         }
 
 
-    addNewAppointment() {
-
-        // Eingaben aus dem Modal auslesen
-        let termin = document.getElementById("termin").value;
-        let date = document.getElementById("date").value;
-        let person = document.getElementById("person").value;
-        if(termin === ""){
-            alert("Ungültige Eingabe")
-        }else if(date === ""){
-            alert("Ungültige Eingabe")
-        }else if(person === ""){
-            alert("Ungültige Eingabe")
-        }else{
-
-        if(termin === ""){
-            alert("Ungültige Eingabe")
-        }else if(date === ""){
-            alert("Ungültige Eingabe")
-        }else if(person === ""){
-            alert("Ungültige Eingabe")
-        }else{
-
-
-        // Objekt bilden -> Wird im fetch zu json umgewandelt
-        var event = {};
-        event.firstname = person;
-        event.appointment = termin;
-        event.eventdate = date;
+    addNewAppointment(event) {
 
         // Übermitteln
         fetch('http://localhost:3000/create', {
@@ -343,7 +290,6 @@ export class CalenderContent {
             })
             .catch (function (err) {
                 console.log('error: ' + err);
-            });}
-        location.reload()
+            })
     }
 }
