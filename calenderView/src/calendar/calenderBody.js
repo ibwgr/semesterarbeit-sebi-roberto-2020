@@ -59,19 +59,8 @@ export class CalenderBody {
         "Freitag",
         "Samstag"
     ];
-/*    const pickerMonth = datepicker('#month', {
-        startDay: 1,
-        customDays: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
-        customMonths: months,
-        overlayButton: "Auswählen",
-        overlayPlaceholder: "Jahr eingeben",
-        showAllDates: true,
-        onSelect: instance => {
-            month1 = instance.dateSelected.getMonth();
-            year1 = instance.dateSelected.getFullYear();
 
-        }
-    });*/
+
     let nextbtn = document.getElementById("next");
     let prevBtn = document.getElementById("prev");
 
@@ -157,13 +146,59 @@ export class CalenderBody {
         button.addEventListener('click', function () {
             let element = document.getElementById("modal");
             element.classList.toggle("hide");
-            this.view.listUser();
+
+            //fetch aufrufen
+            const fetch = this.view.listUser;
+
+            //behandlung des fetch
+            fetch.then(function (response) {
+                return response.json();
+            })
+                .then(function (datanames) {
+                    // Objektvalue, also die Namen mapen
+                    let names = datanames.map(x => Object.values(x))
+
+                    // Set erstellen um jeden Namen nur einmal zu haben
+                    let set = new Set();
+                    names.map(x => set.add(x.toString()))
+
+                    // Select-Liste mit den Namen füllen
+                    let lstName = document.getElementById("person");
+                    set.forEach(function (item) {
+                        let lstOption = document.createElement("OPTION");
+                        lstName.options.add(lstOption);
+                        lstOption.textContent = item;
+                        lstOption.nodeValue = item;
+                        lstName.add(lstOption);})
+                })
+                .catch(function (err) {
+                    console.log('error: ' + err);
+                });
         }.bind({view: this.view}))
     }
 
     saveEntry(button){
         button.addEventListener('click', function () {
-            this.view.addNewAppointment();
+
+            // Eingaben aus dem Modal auslesen
+            let termin = document.getElementById("termin").value;
+            let date = document.getElementById("date").value;
+            let person = document.getElementById("person").value;
+            if(termin === ""){
+                alert("Ungültige Eingabe")
+            }else if(date === ""){
+                alert("Ungültige Eingabe")
+            }else if(person === ""){
+                alert("Ungültige Eingabe")
+            }else{
+                // Objekt bilden -> Wird im fetch zu json umgewandelt
+                var event = {};
+                event.firstname = person;
+                event.appointment = termin;
+                event.eventdate = date;
+
+                this.view.addNewAppointment(event);
+                }
 
             // Select Liste leeren
             const selectElement = document.getElementById("person");
@@ -171,6 +206,7 @@ export class CalenderBody {
                 selectElement.remove(0);
             }
             document.getElementById("modal").classList.toggle("hide");
+            location.reload()
         }.bind({view: this.view}))
     }
 
