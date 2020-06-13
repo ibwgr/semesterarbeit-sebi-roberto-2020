@@ -1,18 +1,27 @@
 * {
     box-sizing: border-box;
 }
-ul {
-    list-style-type: none;
+
+li {
+    margin: 10px
 }
+
+
+
+ul{
+    padding-left: 0px;
+    width: content-box;
+}
+
+
 body {
     font-family: Verdana, sans-serif;
+    background-image: url("images/background4.jpg");
+    background-color: #cccccc;
 }
 
-#calendar {
-    max-width: 600px;
-}
 
-#year{
+#year {
     visibility: hidden;
 }
 
@@ -25,10 +34,12 @@ body {
 }
 
 .month {
-    padding: 70px 25px;
-    width: 100%;
-    background: #1abc9c;
+    padding: 30px 25px;
+    background: #008CBA;
     text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    border: 1px solid #ccc;;
 }
 
 .month ul {
@@ -46,25 +57,23 @@ body {
     font-size: 20px;
     text-transform: uppercase;
     letter-spacing: 3px;
-
 }
 
 #weekdays {
     margin: 0;
     width: 70px;
-    background-color: #ddd;
+    background-color: brown;
     float: left;
 }
 
 #weekdays li {
-    color: #666;
+    color: black;
     text-align: center;
     height: 60px;
     border: 1px solid #ccc;;
 }
 
 #days {
-    background: #eee;
     margin: 0;
 }
 
@@ -72,21 +81,20 @@ body {
     list-style-type: none;
     text-align: center;
     font-size: 16px;
-    color: #777;
+    color: white;
     border: 1px solid #ccc;;
     height: 80px;
     padding: 20px;
-    min-width: 80px;
-  }
+    background-color: #008CBA;
+}
 
 
 #username1, #username2, #username3, #username4 {
     width: 280px;
-    margin-left: 200px;
+    margin-left: 150px;
 }
 
 #user1, #user2, #user3, #user4 {
-    background: #eee;
     margin: 0;
     width: 680px;
 }
@@ -95,11 +103,14 @@ body {
     list-style-type: none;
     text-align: center;
     font-size: 16px;
-    color: #777;
-    border: 1px solid #ccc;;
+    color: black;
+    border: 1px solid black;;
     max-width: 1090px;
     height: 80px;
-    min-width: 100px;
+    overflow: auto;
+    background-color: lightyellow;
+    padding: 5px;
+    box-shadow: 5px 5px #000066;
 }
 
 
@@ -119,7 +130,12 @@ body {
     background-color: #000066;
     height: 60px;
     color: white;
-    min-width: 1000px
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#placehoder {
+    padding-left: 20px;
 }
 
 #trash {
@@ -128,6 +144,13 @@ body {
 
 #deleteButton {
   background-color: #528CE0;
+}
+
+button {
+    border-radius: 8px;
+    background-color: #008CBA;
+    margin: 3px;
+    color: white;
 }
 
 
@@ -144,7 +167,6 @@ body {
     top: 0;
     bottom: 0;
     background: rgba(0,0,0, 0.5);
-
     display: grid;
     grid-template-columns: 1fr 484px 1fr;
     grid-template-rows: 1fr auto 1fr;
@@ -174,46 +196,54 @@ body {
 
 /* Add media queries for smaller screens */
 @media screen and (max-width: 768px) {
-    .weekdays li,
-    #days li, #user1 li, #user2 li, #user3 li, #user4 li{
-        width: 70.5%;
+
+   #days li, .weekdays li, #user1 li, #user2 li, #user3 li, #user4 li{
         font-size: 13px;
+        width: 100px;
+
     }
+
+
     #days li .active {
         padding: 2px;
     }
+
     #placeholder, #username1, #username2, #username3, #username4 {
-        width: 180px;
+        width: 120px;
         margin-left: 20px;
         font-size: 15px;
-    }
-    #usernames{
-        height: 50%;
     }
 }
 
 @media screen and (max-width: 420px) {
-    .weekdays li,
-    #days li, #user1 li, #user2 li, #user3 li, #user4 li{
-        width: 12.5%;
+
+    #days li {
         font-size: 10px;
     }
 
-    #calendar {
-        width: auto;
-    }
 
     #days li .active {
         padding: 2px;
     }
-    #placeholder, #username1, #username2, #username3, #username4 {
-        margin-left: 20px;
+
+   #placeholder, #username1, #username2, #username3, #username4 {
+        width: 150px;
+        margin-left: 10px;
         font-size: 10px;
     }
+
     #usernames{
         height: 50%;
     }
 
+   #days li, #user1 li, #user2 li, #user3 li, #user4 li {
+        list-style-type: none;
+        text-align: center;
+        font-size: 10px;
+        color: black;
+        border: 1px solid black;;
+        width: 20px;
+    }
 }
 
 
