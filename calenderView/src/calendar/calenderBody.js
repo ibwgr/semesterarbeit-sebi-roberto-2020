@@ -67,7 +67,7 @@ export class CalenderBody {
     let prevBtn = document.getElementById("prev");
 
     nextbtn.onclick = ()=>{
-       this.view.removeCalender();
+       this.view.removeCalender()
         nextMonth();
         let user1 = document.getElementById("username1").innerHTML;
         let user2 = document.getElementById("username2").innerHTML;
@@ -144,7 +144,7 @@ export class CalenderBody {
 
 
     showModal(button){
-        button.addEventListener('click', function () {
+        button.addEventListener('click', ()=> {
             let element = document.getElementById("modal");
             element.classList.toggle("hide");
 
@@ -175,11 +175,11 @@ export class CalenderBody {
                 .catch(function (err) {
                     console.log('error: ' + err);
                 });
-        }.bind({view: this.view}))
+        })
     }
 
     saveEntry(button){
-        button.addEventListener('click', function () {
+        button.addEventListener('click', () => {
 
             // Eingaben aus dem Modal auslesen
             let termin = document.getElementById("termin").value;
@@ -208,18 +208,18 @@ export class CalenderBody {
             }
             document.getElementById("modal").classList.toggle("hide");
             location.reload()
-        }.bind({view: this.view}))
+        })
     }
 
     backToCalender(button){
-        button.addEventListener('click', function () {
+        button.addEventListener('click', ()=> {
             // Select Liste leeren
             const selectElement = document.getElementById("person");
             while (selectElement.length > 0){
                 selectElement.remove(0);
             }
             document.getElementById("modal").classList.toggle("hide");
-        }.bind({view: this.view}))
+        })
     }
 
     async showData(monat, user1, user2, user3, user4){
@@ -229,7 +229,178 @@ export class CalenderBody {
 
             function fetchedData (data) {
 
-                return this.mapper.calendarMapper(data, user1, user2, user3, user4)
+             let calenderMap = this.mapper.calendarMapper(data, user1, user2, user3, user4)
+
+                let timeArray = [];
+
+                let row1 = document.getElementById("user1");
+                let row2 = document.getElementById("user2");
+                let row3 = document.getElementById("user3");
+                let row4 = document.getElementById("user4");
+
+
+                for (let [key, value] of calenderMap.entries()) {
+
+                    let r = user1;
+                    let s = user2;
+                    let f = user3;
+                    let z = user4;
+                    let time = new Date(key);
+                    let tag = time.getDate();
+                    let mapping = value.entries();
+                    let a = [];
+                    let b = [];
+                    let c = [];
+                    let d = [];
+
+
+                    for (let [user, termin] of mapping) {
+
+                        function pushItems(users) {
+
+                            termin.forEach((val, key) => {
+                                let appointment = termin[key].description;
+                                let identifier = termin[key].id.id;
+                                let object = {meet: appointment, nr: identifier}
+                                users.push(object)
+                            })
+                        }
+
+                        if (user === r) {
+                            pushItems(a)
+                        }
+                        if (user === s) {
+                            pushItems(b)
+                        }
+                        if (user === f) {
+                            pushItems(c)
+                        }
+                        if (user === z) {
+                            pushItems(d)
+                        }
+                    }
+
+
+                    timeArray.push(tag);
+
+                    let date = new Date();
+                    let firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+                    let today = new Date(firstDay);
+                    let firstOfMonth = today.getDate();
+                    let firstEntry = timeArray[0];
+                    let firstEmptyFields = firstEntry - firstOfMonth;
+                    let currentDate = timeArray[timeArray.length - 2];
+                    let nextDate = timeArray[timeArray.length - 1];
+                    let diffTage = nextDate - currentDate;
+
+
+                    if (timeArray > 0) {
+                        fillIn(firstEmptyFields)
+                    }
+
+
+                    if (diffTage > 1) {
+
+                        for (let x = 1; x < diffTage; x++) {
+                            let element = createField("", "");
+                            row1.appendChild(element);
+                            let element1 = createField("", "");
+                            row2.appendChild(element1);
+                            let element2 = createField("", "");
+                            row3.appendChild(element2);
+                            let element3 = createField("", "");
+                            row4.appendChild(element3)
+                        }
+                    }
+
+
+                    let a2 = a.map(function (e) {
+                        return e.nr
+                    });
+                    let b2 = b.map(function (e) {
+                        return e.nr
+                    });
+                    let c2 = c.map(function (e) {
+                        return e.nr
+                    });
+                    let d2 = d.map(function (e) {
+                        return e.nr
+                    });
+
+                    let element = createField(a, a2);
+                    row1.appendChild(element);
+                    let element1 = createField(b, b2);
+                    row2.appendChild(element1);
+                    let element2 = createField(c, c2);
+                    row3.appendChild(element2);
+                    let element3 = createField(d, d2);
+                    row4.appendChild(element3);
+                }
+
+
+                let lastDay = new Date();
+                let lastday = new Date(lastDay.getFullYear(), lastDay.getMonth() + 1, 0, 23, 59, 59);
+                let end = new Date(lastday);
+                let lastEnd = end.getDate();
+                let lastEntry = timeArray.pop();
+                let fillUp = lastEnd - lastEntry;
+
+
+                if (calenderMap.size === 0) { // Gitter auffüllen mit leeren Feldern falls es im Monat keine Termine hat
+                    fillIn(lastEnd)
+                }
+
+
+                fillIn(fillUp);
+
+                function createField(data, id) {
+
+                    const element = document.createElement("li");
+
+                    let button = document.createElement("button");
+                    button.classList.add("button");
+
+                    button.setAttribute("id", id);
+                    button.innerText = "Löschen";
+                    button.style.backgroundColor = "green";
+
+                        button.onclick = ()=> {
+
+                           this.view.deleteAppointment(id)
+                        };
+
+
+                    if (button.id === ""){
+                        button.style.display = "none"
+                    }
+                    else {
+                        let a = [];
+                        for (let x =0; x < data.length; x++){
+
+                            a.push(data[x].meet + "<br>");
+                        }
+
+                        element.innerHTML = a;
+                        element.appendChild(button);
+                        button.id = id
+                    }
+                    return element
+                }
+
+                function fillIn(input) {
+
+                    for (let x = 0; x < input; x++) {
+
+                        let element = createField("", "");
+                        row1.appendChild(element);
+                        let element1 = createField( "", "");
+                        row2.appendChild(element1);
+                        let element2 = createField("", "");
+                        row3.appendChild(element2);
+                        let element3 = createField("", "");
+                        row4.appendChild(element3)
+                    }
+                }
 
             }.bind({mapper: this.mapper}))
     }
