@@ -239,7 +239,7 @@ export class CalenderContent {
                    let a = [];
                     for (let x =0; x < data.length; x++){
 
-                        a.push(data[x].meet);
+                        a.push(data[x].meet + "<br>");
                     }
 
                     element.innerHTML = a;
