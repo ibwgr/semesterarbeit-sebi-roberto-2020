@@ -189,17 +189,22 @@ export class CalendarMapper {
             button.innerText = "Löschen";
             button.style.backgroundColor = "green";
 
-            button.onclick = function () {
 
-                fetch('http://localhost:3000/events/' + id, {
-                    method: 'DELETE',
-                })
-                    .then(res => res.json())
-                    .catch((error)=>{
-                        console.log(error)
-                    });
-                location.reload()
-            };
+            for (let x = 0; x < id.length; x++){
+
+                button.onclick = function () {
+
+                    fetch('http://localhost:3000/events/' + id[x], {
+                        method: 'DELETE',
+                    })
+                        .then(res => res.json())
+                        .catch((error)=>{
+                            console.log(error)
+                        });
+                    location.reload()
+                };
+            }
+
 
             if (button.id === ""){
                 button.style.display = "none"
