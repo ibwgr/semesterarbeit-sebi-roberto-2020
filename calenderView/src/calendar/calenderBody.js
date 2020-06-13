@@ -3,8 +3,9 @@
 export class CalenderBody {
 
 
-    constructor(view){
+    constructor(view, mapper){
 
+        this.mapper = mapper;
         this.view = view;
         this.calender();
         const newEntry = document.getElementById("showModal");
@@ -13,6 +14,9 @@ export class CalenderBody {
         this.saveEntry(saveData);
         const backToCalender = document.getElementById("back");
         this.backToCalender(backToCalender);
+
+
+
     }
 
     showMonth(monat){
@@ -21,22 +25,26 @@ export class CalenderBody {
         let user3 = document.getElementById("username3").innerHTML;
         let user4 = document.getElementById("username4").innerHTML;
 
-        this.view.showFamilyCalendar(monat+1, user1, user2, user3, user4);
+        let fetchedData = this.showData(monat+1);
+
+        this.mapData(fetchedData, user1, user2, user3, user4)
 
     }
 
+
+
     calender(){
 
-    let today = new Date();
-    let dayInt = today.getDate();
-    let month1 = today.getMonth();
+        let today = new Date();
+        let dayInt = today.getDate();
+        let month1 = today.getMonth();
 
-    this.showMonth(month1);
+        this.showMonth(month1);
 
-    let year1 = today.getFullYear();
-    let calendarBody = document.getElementById("days");
-    let weekday = new Date(year1, month1).getDay();
-    let months = [
+        let year1 = today.getFullYear();
+        let calendarBody = document.getElementById("days");
+        let weekday = new Date(year1, month1).getDay();
+        let months = [
         "Januar",
         "Februar",
         "März",
@@ -50,7 +58,7 @@ export class CalenderBody {
         "November",
         "Dezember"
     ];
-    let weekdays = [
+        let weekdays = [
         "Sonntag",
         "Montag",
         "Dienstag",
@@ -61,41 +69,38 @@ export class CalenderBody {
     ];
 
 
-    let nextbtn = document.getElementById("next");
-    let prevBtn = document.getElementById("prev");
+        let nextbtn = document.getElementById("next");
+        let prevBtn = document.getElementById("prev");
 
-    nextbtn.onclick = function () {
-       this.view.removeCalender();
-        nextMonth();
-        let user1 = document.getElementById("username1").innerHTML;
-        let user2 = document.getElementById("username2").innerHTML;
-        let user3 = document.getElementById("username3").innerHTML;
-        let user4 = document.getElementById("username4").innerHTML;
-        this.view.showFamilyCalendar(month1+1, user1, user2, user3, user4)
-
-    }.bind({view: this.view});
-
-
-    prevBtn.onclick = function () {
-        this.view.removeCalender();
-        previousMonth();
-        let user1 = document.getElementById("username1").innerHTML;
-        let user2 = document.getElementById("username2").innerHTML;
-        let user3 = document.getElementById("username3").innerHTML;
-        let user4 = document.getElementById("username4").innerHTML;
-        this.view.showFamilyCalendar(month1+1, user1, user2, user3, user4)
-    }.bind({view: this.view});
+        nextbtn.onclick = function () {
+            this.view.removeCalender();
+            nextMonth();
+            let user1 = document.getElementById("username1").innerHTML;
+            let user2 = document.getElementById("username2").innerHTML;
+            let user3 = document.getElementById("username3").innerHTML;
+            let user4 = document.getElementById("username4").innerHTML;
+            this.showData(month1+1, user1, user2, user3, user4)
+        }.bind(({view: this.view}))
 
 
+        prevBtn.onclick = function () {
+            this.view.removeCalender();
+            previousMonth();
+            let user1 = document.getElementById("username1").innerHTML;
+            let user2 = document.getElementById("username2").innerHTML;
+            let user3 = document.getElementById("username3").innerHTML;
+            let user4 = document.getElementById("username4").innerHTML;
+            this.showData(month1+1, user1, user2, user3, user4)
+        }.bind(({view: this.view}))
 
-    showCalendar(month1, year1);
+
+        showCalendar(month1, year1);
 
 
-   function showCalendar(month, year) {
+        function showCalendar(month, year) {
 
-       let totalDays = daysInMonth(month1, year1);
-
-       calendarBody.innerHTML = "";
+            let totalDays = daysInMonth(month1, year1);
+            calendarBody.innerHTML = "";
 
         function daysInMonth(month, year) {
             return new Date(year, month + 1, 0).getDate();
@@ -128,18 +133,17 @@ export class CalenderBody {
 
     }
 
-    function nextMonth() {
-        year1 = month1 === 11 ? year1 + 1 : year1;
-        month1 = (month1 + 1) % 12;
-        showCalendar(year1, month1)
+        function nextMonth() {
+            year1 = month1 === 11 ? year1 + 1 : year1;
+            month1 = (month1 + 1) % 12;
+            showCalendar(year1, month1)
     }
 
-    function previousMonth() {
-       year1 = month1 === 0 ? year1 - 1 : year1;
-       month1 = month1 === 0 ? 11 : month1 - 1;
-       showCalendar(year1, month1)
-    }
-    }
+        function previousMonth() {
+            year1 = month1 === 0 ? year1 - 1 : year1;
+            month1 = month1 === 0 ? 11 : month1 - 1;
+            showCalendar(year1, month1)
+    }}
 
 
     showModal(button){
@@ -176,6 +180,29 @@ export class CalenderBody {
                 });
         }.bind({view: this.view}))
     }
+
+
+   async showData(monat, user1, user2, user3, user4){
+
+        const fetch = this.view.showFamilyCalendar(monat)
+
+        await fetch.then(
+
+             function fetchedData (data) {
+
+            return this.mapper.calendarMapper(data, user1, user2, user3, user4)
+
+         }
+
+         .bind({mapper: this.mapper}))
+
+    return
+}
+
+
+
+
+
 
     saveEntry(button){
         button.addEventListener('click', function () {
@@ -221,6 +248,17 @@ export class CalenderBody {
         }.bind({view: this.view}))
     }
 
+
+    removeCalender() {
+        let row1 = document.getElementById("user1");
+        row1.innerText = "";
+        let row2 = document.getElementById("user2");
+        row2.innerText = "";
+        let row3 = document.getElementById("user3");
+        row3.innerText = "";
+        let row4 = document.getElementById("user4");
+        row4.innerText = "";
+    }
 
 }
 
