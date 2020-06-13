@@ -3,8 +3,9 @@
 export class CalenderBody {
 
 
-    constructor(view){
+    constructor(view, mapper){
 
+        this.mapper = mapper
         this.view = view;
         this.calender();
         const newEntry = document.getElementById("showModal");
@@ -21,8 +22,9 @@ export class CalenderBody {
         let user3 = document.getElementById("username3").innerHTML;
         let user4 = document.getElementById("username4").innerHTML;
 
-        this.view.showFamilyCalendar(monat+1, user1, user2, user3, user4);
+       // this.view.showFamilyCalendar(monat+1, user1, user2, user3, user4);
 
+        this.showData(monat + 1, user1, user2, user3, user4)
     }
 
     calender(){
@@ -64,27 +66,26 @@ export class CalenderBody {
     let nextbtn = document.getElementById("next");
     let prevBtn = document.getElementById("prev");
 
-    nextbtn.onclick = function () {
+    nextbtn.onclick = ()=>{
        this.view.removeCalender();
         nextMonth();
         let user1 = document.getElementById("username1").innerHTML;
         let user2 = document.getElementById("username2").innerHTML;
         let user3 = document.getElementById("username3").innerHTML;
         let user4 = document.getElementById("username4").innerHTML;
-        this.view.showFamilyCalendar(month1+1, user1, user2, user3, user4)
+        this.showData(month1+1, user1, user2, user3, user4)
+    };
 
-    }.bind({view: this.view});
 
-
-    prevBtn.onclick = function () {
+    prevBtn.onclick = ()=>{
         this.view.removeCalender();
         previousMonth();
         let user1 = document.getElementById("username1").innerHTML;
         let user2 = document.getElementById("username2").innerHTML;
         let user3 = document.getElementById("username3").innerHTML;
         let user4 = document.getElementById("username4").innerHTML;
-        this.view.showFamilyCalendar(month1+1, user1, user2, user3, user4)
-    }.bind({view: this.view});
+        this.showData(month1+1, user1, user2, user3, user4)
+    };
 
 
 
@@ -221,6 +222,16 @@ export class CalenderBody {
         }.bind({view: this.view}))
     }
 
+    async showData(monat, user1, user2, user3, user4){
 
+        const fetch = this.view.showFamilyCalendar(monat)
+        await fetch.then(
+
+            function fetchedData (data) {
+
+                return this.mapper.calendarMapper(data, user1, user2, user3, user4)
+
+            }.bind({mapper: this.mapper}))
+    }
 }
 
