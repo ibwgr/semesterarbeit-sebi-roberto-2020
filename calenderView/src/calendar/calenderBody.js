@@ -5,7 +5,7 @@ export class CalenderBody {
 
     constructor(view, mapper){
 
-        this.mapper = mapper
+        this.mapper = mapper;
         this.view = view;
         this.calender();
         const newEntry = document.getElementById("showModal");
@@ -21,10 +21,11 @@ export class CalenderBody {
         let user2 = document.getElementById("username2").innerHTML;
         let user3 = document.getElementById("username3").innerHTML;
         let user4 = document.getElementById("username4").innerHTML;
-
-       // this.view.showFamilyCalendar(monat+1, user1, user2, user3, user4);
-
-        this.showData(monat + 1, user1, user2, user3, user4)
+        let today = new Date();
+        today = new Date(today.getFullYear(), today.getMonth() + 1, 0, 23, 59, 59);
+        let end = new Date(today);
+        let lastEnd = end.getDate();
+        this.showData(monat + 1, user1, user2, user3, user4, lastEnd)
     }
 
     calender(){
@@ -32,6 +33,7 @@ export class CalenderBody {
     let today = new Date();
     let dayInt = today.getDate();
     let month1 = today.getMonth();
+    today = new Date(today.getFullYear(), today.getMonth() + 1, 0, 23, 59, 59);
 
     this.showMonth(month1);
 
@@ -67,24 +69,24 @@ export class CalenderBody {
     let prevBtn = document.getElementById("prev");
 
     nextbtn.onclick = ()=>{
-       this.view.removeCalender()
-        nextMonth();
+       this.view.removeCalender();
+        let lastEnd = nextMonth();
         let user1 = document.getElementById("username1").innerHTML;
         let user2 = document.getElementById("username2").innerHTML;
         let user3 = document.getElementById("username3").innerHTML;
         let user4 = document.getElementById("username4").innerHTML;
-        this.showData(month1+1, user1, user2, user3, user4)
+        this.showData(month1+1, user1, user2, user3, user4, lastEnd)
     };
 
 
     prevBtn.onclick = ()=>{
         this.view.removeCalender();
-        previousMonth();
+        let lastEnd = previousMonth();
         let user1 = document.getElementById("username1").innerHTML;
         let user2 = document.getElementById("username2").innerHTML;
         let user3 = document.getElementById("username3").innerHTML;
         let user4 = document.getElementById("username4").innerHTML;
-        this.showData(month1+1, user1, user2, user3, user4)
+        this.showData(month1+1, user1, user2, user3, user4, lastEnd)
     };
 
 
@@ -126,21 +128,30 @@ export class CalenderBody {
         }
 
         document.getElementById("month").innerHTML = months[month1] + " " + year1;
-
     }
 
     function nextMonth() {
+
+        today = new Date(today.getFullYear(), today.getMonth() + 2, 0, 23, 59, 59);
+        let end = new Date(today);
+        let lastEnd = end.getDate();
         year1 = month1 === 11 ? year1 + 1 : year1;
         month1 = (month1 + 1) % 12;
-        showCalendar(year1, month1)
+
+
+        showCalendar(year1, month1);
+        return lastEnd
     }
 
     function previousMonth() {
-       year1 = month1 === 0 ? year1 - 1 : year1;
-       month1 = month1 === 0 ? 11 : month1 - 1;
-       showCalendar(year1, month1)
-    }
-    }
+        today = new Date(today.getFullYear(), today.getMonth(), 0, 23, 59, 59);
+        let end = new Date(today);
+        let lastEnd = end.getDate();
+        year1 = month1 === 0 ? year1 - 1 : year1;
+        month1 = month1 === 0 ? 11 : month1 - 1;
+        showCalendar(year1, month1);
+        return lastEnd
+    }}
 
 
     showModal(button){
@@ -222,14 +233,15 @@ export class CalenderBody {
         })
     }
 
-    async showData(monat, user1, user2, user3, user4){
+    async showData(monat, user1, user2, user3, user4, lastEnd){
 
-        const fetch = this.view.showFamilyCalendar(monat)
+        const fetch = this.view.showFamilyCalendar(monat);
         await fetch.then(
 
             function fetchedData (data) {
 
-             let calenderMap = this.mapper.calendarMapper(data, user1, user2, user3, user4)
+
+             let calenderMap = this.mapper.calendarMapper(data, user1, user2, user3, user4);
 
                 let timeArray = [];
 
@@ -253,7 +265,6 @@ export class CalenderBody {
                     let c = [];
                     let d = [];
 
-
                     for (let [user, termin] of mapping) {
 
                         function pushItems(users) {
@@ -261,7 +272,7 @@ export class CalenderBody {
                             termin.forEach((val, key) => {
                                 let appointment = termin[key].description;
                                 let identifier = termin[key].id.id;
-                                let object = {meet: appointment, nr: identifier}
+                                let object = {meet: appointment, nr: identifier};
                                 users.push(object)
                             })
                         }
@@ -341,9 +352,14 @@ export class CalenderBody {
                 let lastDay = new Date();
                 let lastday = new Date(lastDay.getFullYear(), lastDay.getMonth() + 1, 0, 23, 59, 59);
                 let end = new Date(lastday);
-                let lastEnd = end.getDate();
+               // lastEnd = end.getDate();
+
+
+
                 let lastEntry = timeArray.pop();
                 let fillUp = lastEnd - lastEntry;
+
+
 
 
                 if (calenderMap.size === 0) { // Gitter auffüllen mit leeren Feldern falls es im Monat keine Termine hat
