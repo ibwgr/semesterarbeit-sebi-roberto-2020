@@ -120,8 +120,9 @@ body {
 }
 
 #days li.active {
-    background: #1abc9c;
-    color: white !important;
+    background: white;
+    color: black !important;
+    border: solid black;
 }
 
 
@@ -157,6 +158,18 @@ button {
 #next,
 #prev {
     cursor: pointer;
+}
+
+.settings{
+    margin: 20px 0 0 10px;
+}
+
+.settings span{
+    color: white;
+}
+
+.newUser{
+
 }
 
 .modal {
