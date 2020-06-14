@@ -34,9 +34,12 @@ export class CalenderContent {
 
 
 
-    get listUser(){
+    listUser(){
 
         return fetch('http://localhost:3000/names')
+            .catch(function (err) {
+                console.log('error: ' + err);
+            })
         }
 
 
