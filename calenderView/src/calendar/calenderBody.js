@@ -33,6 +33,8 @@ export class CalenderBody {
     let today = new Date();
     let dayInt = today.getDate();
     let month1 = today.getMonth();
+    let year = today.getFullYear()
+
     today = new Date(today.getFullYear(), today.getMonth() + 1, 0, 23, 59, 59);
 
     this.showMonth(month1);
@@ -176,12 +178,19 @@ export class CalenderBody {
 
                     // Select-Liste mit den Namen füllen
                     let lstName = document.getElementById("person");
+
+                    let allUser = document.createElement("OPTION");
+                    allUser.textContent = "Für alle User";
+                    lstName.options.add(allUser)
+
+
                     set.forEach(function (item) {
                         let lstOption = document.createElement("OPTION");
                         lstName.options.add(lstOption);
                         lstOption.textContent = item;
                         lstOption.nodeValue = item;
-                        lstName.add(lstOption);})
+                        lstName.add(lstOption);
+                    })
                 })
                 .catch(function (err) {
                     console.log('error: ' + err);
@@ -190,21 +199,44 @@ export class CalenderBody {
     }
 
     saveEntry(button){
+
+
         button.addEventListener('click', () => {
 
             // Eingaben aus dem Modal auslesen
             let termin = document.getElementById("termin").value;
             let date = document.getElementById("date").value;
             let person = document.getElementById("person").value;
-            if(termin === ""){
+            if (termin === "") {
                 alert("Ungültige Eingabe")
-            }else if(date === ""){
+            } else if (date === "") {
                 alert("Ungültige Eingabe")
-            }else if(person === ""){
+            } else if (person === "") {
                 alert("Ungültige Eingabe")
-            }else{
+            } else if (person === "Für alle User") {
+
+                let user1 = document.getElementById("username1").innerText;
+                let user2 = document.getElementById("username2").innerText;
+                let user3 = document.getElementById("username3").innerText;
+                let user4 = document.getElementById("username4").innerText;
+
+                let users = [user1, user2, user3, user4];
+
+                for (let x = 0; x < users.length; x++) {
+
+                    var event = {};
+                    event.firstname = users[x];
+                    event.appointment = termin;
+                    event.eventdate = date;
+
+                    this.view.addNewAppointment(event)
+                }
+            }
+
+            else{
                 // Objekt bilden -> Wird im fetch zu json umgewandelt
                 var event = {};
+
                 event.firstname = person;
                 event.appointment = termin;
                 event.eventdate = date;
@@ -239,7 +271,6 @@ export class CalenderBody {
         await fetch.then(
 
             function fetchedData (data) {
-
 
              let calenderMap = this.mapper.calendarMapper(data, user1, user2, user3, user4);
 
@@ -348,19 +379,8 @@ export class CalenderBody {
                     row4.appendChild(element3);
                 }
 
-
-                let lastDay = new Date();
-                let lastday = new Date(lastDay.getFullYear(), lastDay.getMonth() + 1, 0, 23, 59, 59);
-                let end = new Date(lastday);
-               // lastEnd = end.getDate();
-
-
-
                 let lastEntry = timeArray.pop();
                 let fillUp = lastEnd - lastEntry;
-
-
-
 
                 if (calenderMap.size === 0) { // Gitter auffüllen mit leeren Feldern falls es im Monat keine Termine hat
                     fillIn(lastEnd)
