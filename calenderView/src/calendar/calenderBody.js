@@ -149,7 +149,7 @@ export class CalenderBody {
             element.classList.toggle("hide");
 
             //fetch aufrufen
-            const fetch = this.view.listUser;
+            const fetch = this.view.listUser();
 
             //behandlung des fetch
             fetch.then(function (response) {
