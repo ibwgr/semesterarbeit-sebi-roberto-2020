@@ -22,10 +22,11 @@ export class CalenderBody {
         let user3 = document.getElementById("username3").innerHTML;
         let user4 = document.getElementById("username4").innerHTML;
         let today = new Date();
+        let year = today.getFullYear()
         today = new Date(today.getFullYear(), today.getMonth() + 1, 0, 23, 59, 59);
         let end = new Date(today);
         let lastEnd = end.getDate();
-        this.showData(monat + 1, user1, user2, user3, user4, lastEnd)
+        this.showData(year,monat + 1, user1, user2, user3, user4, lastEnd)
     }
 
     calender(){
@@ -33,7 +34,6 @@ export class CalenderBody {
     let today = new Date();
     let dayInt = today.getDate();
     let month1 = today.getMonth();
-    let year = today.getFullYear()
 
     today = new Date(today.getFullYear(), today.getMonth() + 1, 0, 23, 59, 59);
 
@@ -77,7 +77,7 @@ export class CalenderBody {
         let user2 = document.getElementById("username2").innerHTML;
         let user3 = document.getElementById("username3").innerHTML;
         let user4 = document.getElementById("username4").innerHTML;
-        this.showData(month1+1, user1, user2, user3, user4, lastEnd)
+        this.showData(year1, month1+1, user1, user2, user3, user4, lastEnd)
     };
 
 
@@ -88,10 +88,8 @@ export class CalenderBody {
         let user2 = document.getElementById("username2").innerHTML;
         let user3 = document.getElementById("username3").innerHTML;
         let user4 = document.getElementById("username4").innerHTML;
-        this.showData(month1+1, user1, user2, user3, user4, lastEnd)
+        this.showData(year1,month1+1,  user1, user2, user3, user4, lastEnd)
     };
-
-
 
     showCalendar(month1, year1);
 
@@ -170,11 +168,11 @@ export class CalenderBody {
             })
                 .then(function (datanames) {
                     // Objektvalue, also die Namen mapen
-                    let names = datanames.map(x => Object.values(x))
+                    let names = datanames.map(x => Object.values(x));
 
                     // Set erstellen um jeden Namen nur einmal zu haben
                     let set = new Set();
-                    names.map(x => set.add(x.toString()))
+                    names.map(x => set.add(x.toString()));
 
                     // Select-Liste mit den Namen füllen
                     let lstName = document.getElementById("person");
@@ -263,7 +261,7 @@ export class CalenderBody {
         })
     }
 
-    async showData(monat, user1, user2, user3, user4, lastEnd){
+    async showData(year, monat, user1, user2, user3, user4, lastEnd){
 
         const klsdf = function fetchedData (data) {
             const view = this.view;
@@ -436,7 +434,7 @@ export class CalenderBody {
 
         }.bind({mapper: this.mapper, view: this.view});
 
-        const fetch = this.view.showFamilyCalendar(monat);
+        const fetch = this.view.showFamilyCalendar(monat, year);
         await fetch.then(klsdf);
     }
 }
