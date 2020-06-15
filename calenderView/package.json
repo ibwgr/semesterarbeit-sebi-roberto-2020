@@ -4,15 +4,18 @@
   "description": "",
   "main": "src/calendar/index.html",
   "directories": {
-    "test": "test"
+    "test": "calenderView/src/test"
   },
   "scripts": {
-    "test": "npm run test",
+    "test": "jest",
     "start": "NODE_ENV=development rm -rf .cache && npx parcel ${DIR:-src}/calendar/index.html"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mocha": "^8.0.0"
+    "regenerator-runtime": "^0.13.5"
+  },
+  "devDependencies": {
+    "jest": "^26.0.1"
   }
 }
