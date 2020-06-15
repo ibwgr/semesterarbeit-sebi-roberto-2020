@@ -1,3 +1,4 @@
+import {bindCallback} from "rxjs";
 
 
 export class CalenderBody {
@@ -14,6 +15,8 @@ export class CalenderBody {
         this.saveEntry(saveData);
         const backToCalender = document.getElementById("back");
         this.backToCalender(backToCalender);
+        const saveUser = document.getElementById("saveUser");
+        this.saveUser(saveUser);
     }
 
     showMonth(monat){
@@ -163,10 +166,7 @@ export class CalenderBody {
             const fetch = this.view.listUser();
 
             //behandlung des fetch
-            fetch.then(function (response) {
-                return response.json();
-            })
-                .then(function (datanames) {
+            fetch.then(function (datanames) {
                     // Objektvalue, also die Namen mapen
                     let names = datanames.map(x => Object.values(x));
 
@@ -436,6 +436,61 @@ export class CalenderBody {
 
         const fetch = this.view.showFamilyCalendar(monat, year);
         await fetch.then(klsdf);
+    }
+
+
+    saveUser(button) {
+
+        const fetch = this.view.listUser();
+        const view = this.view;
+
+        const saveUser = async function saveUsr() {
+            let arr = [];
+            let isNew = false;
+            let event = {}
+
+
+            // Eingaben aus dem Inputfeld auslesen
+            let newUser = document.getElementById("newUser").value;
+
+
+            //behandlung des fetch
+            await fetch.then(data =>{
+
+                // Objektvalue, also die Namen mapen
+                let names = data.map(x => Object.values(x))
+
+                // Set erstellen um jeden Namen nur einmal zu haben
+                let set = new Set();
+                names.map(x => set.add(x.toString()))
+                arr = Array.from(set);
+
+                let idx = arr.indexOf(newUser);
+               // Prüfung ob Inputfeld nicht leer und nicht schon bestehender Nutzer
+                if(newUser === ""){
+                    alert("Kein Nutzername erfasst!")
+                    } else if(idx !== -1){
+                        alert("Nutzer bereits vorhanden!")
+                    }else{ isNew = true}
+                    console.log(isNew)
+                    console.log(arr)
+                // leerer Eintrag in DB erstellen, damit der User einen Eintrag hat. Ugly quick and dirty
+                if(isNew){
+                // Objekt bilden -> Wird im fetch zu json umgewandelt
+                    event.firstname = newUser;
+                    event.appointment = "";
+                    event.eventdate = "0000-00-00";
+                    view.addNewAppointment(event);
+                    location.reload()
+                   console.log(event)
+                }
+                    // Inputfeld leeren
+                    // document.getElementById("newUser").value = "";
+                });
+        }
+
+        button.addEventListener('click',saveUser);
+
     }
 }
 

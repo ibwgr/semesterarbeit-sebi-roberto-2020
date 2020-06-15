@@ -36,6 +36,9 @@ export class CalenderService {
     listUser(){
 
         return fetch('http://localhost:3000/names')
+            .then(function (response) {
+                return response.json();
+            })
             .catch(function (err) {
                 console.log('error: ' + err);
             })
