@@ -10,21 +10,21 @@
 
 <div id="modal" class="modal hide">
     <div class="panel">
-        <div class="panel__content">
+        <div class="panelContent">
             <div><label for="termin">Termin</label>
-                <input type="text" id="termin" name="termin">
+                <input class="right" type="text" id="termin" name="termin">
             </div>
             <div>
                 <label for="date">Datum</label>
-                <input type="date" id="date" name="date">
+                <input class="right" type="date" id="date" name="date">
             </div>
             <div>
                 <label for="person">Eintrag für: </label>
-                <select name="person" id="person"></select>
+                <select class="right" name="person" id="person"></select>
             </div>
             <div>
                 <input type="button" id="back" value="Zurück">
-                <input type="button" id="saveData" value="Speichern">
+                <input class="right" type="button" id="saveData" value="Speichern">
             </div>
         </div>
     </div>
@@ -39,7 +39,14 @@
             <li id="next">&#10095;</li>
         </ul>
     </div>
-    <div id="entryButton"> <input type="button" id="showModal"value="Neuer Eintrag"></div>
+
+    <div class="settings">
+        <input type="button" id="showModal"value="Neuer Eintrag">
+        <span>|</span>
+        <input type="text" id="newUser" name="newUser" placeholder="Zusätzlicher User">
+        <input type="button" id="saveUser" value="Hinzufügen">
+        <span>|</span>
+    </div>
 
 
     <ul id="usernames">
