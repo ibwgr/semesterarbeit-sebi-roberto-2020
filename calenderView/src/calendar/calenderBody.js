@@ -224,7 +224,7 @@ export class CalenderBody {
 
                 for (let x = 0; x < users.length; x++) {
 
-                    var event = {};
+                    let event = {};
                     event.firstname = users[x];
                     event.appointment = termin;
                     event.eventdate = date;
@@ -234,7 +234,7 @@ export class CalenderBody {
             }
 
             else{
-                var event = {};
+                let event = {};
 
                 event.firstname = person;
                 event.appointment = termin;
@@ -434,7 +434,7 @@ export class CalenderBody {
                 }
             }
 
-        }.bind({mapper: this.mapper, view: this.view})
+        }.bind({mapper: this.mapper, view: this.view});
 
         const fetch = this.view.showFamilyCalendar(monat);
         await fetch.then(klsdf);

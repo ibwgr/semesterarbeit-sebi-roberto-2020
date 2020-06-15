@@ -20,7 +20,7 @@ export class CalenderService {
 
     showFamilyCalendar(monat, year) {
 
-        return fetch('http://localhost:3000/month/' + monat + "/" + year)
+        return fetch('http://localhost:3000/month/' + monat/* + "/" + year*/)
             .then(function (response) {
 
                 return response.json();
