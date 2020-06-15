@@ -40,6 +40,9 @@ body {
     font-size: 20px;
     font-weight: bold;
     border: 1px solid #ccc;;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
 }
 
 .month ul {
@@ -90,7 +93,7 @@ body {
 
 
 #username1, #username2, #username3, #username4 {
-    width: 280px;
+    width: 380px;
     margin-left: 150px;
 }
 
@@ -133,7 +136,12 @@ body {
     color: white;
     font-size: 20px;
     font-weight: bold;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 7vmax;
 }
+
+
 
 #placehoder {
     padding-left: 20px;
@@ -183,6 +191,12 @@ button {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     grid-template-rows: 1fr auto 1fr;
+}
+
+#entryButton {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 5vmax;
 }
 
 .panel {
