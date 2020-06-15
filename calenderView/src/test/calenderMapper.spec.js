@@ -1,4 +1,9 @@
+import {CalendarMapper} from "../calendar/calendarMapper";
+import {forgotPassword} from "../calendar/controll";
+
+
 let assert = require('assert');
+
 
 const data = [
 
@@ -42,17 +47,27 @@ const data = [
 
     ];
 
+let mapper = new CalendarMapper();
 
-
-describe('Basic Mocha String Test', function () {
+describe('Mapper-Test', function () {
     it('should return number of charachters in a string', function () {
-        assert.equal("Hello".length, 4);
+
+       expect(mapper.calendarMapper(data))
+
+
+
     });
-    it('should return first charachter of the string', function () {
-        assert.equal("Hello".charAt(0), 'H');
-    });
+
 });
 
 
 
+describe("forgotPassword()", () => {
+    it("should return true", () => {
+        //Testing a boolean
+        expect(forgotPassword()).toBeTruthy();
+        //Another way to test a boolean
+        expect(forgotPassword()).toEqual(true);
+    });
+});
 
