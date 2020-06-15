@@ -393,3 +393,4 @@ Temporary Items
 docker-compose.yml
 .env
 dist
+/calenderView/.cache/
