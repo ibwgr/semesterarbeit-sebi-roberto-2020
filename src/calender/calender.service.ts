@@ -2,6 +2,7 @@ import {Injectable} from '@nestjs/common';
 import {InjectRepository} from "@nestjs/typeorm";
 import {Repository, UpdateResult} from "typeorm";
 import {Familycalender} from "./calender.entity";
+import {promises} from "dns";
 
 @Injectable()
 export class CalenderService {
@@ -38,6 +39,11 @@ export class CalenderService {
 
     findOne(id: number):Promise<Familycalender>{
         return this.calenderRepository.findOne(id)
+    }
+
+    async deleteAllByName(name): Promise<Familycalender[]>{
+        return await this.calenderRepository.query(
+            'delete from familycalender where firstname LIKE "'+name+'"')
     }
 
     async remove(id:number): Promise<void>{
