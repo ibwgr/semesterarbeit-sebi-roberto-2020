@@ -22,7 +22,7 @@ export class CalenderBody {
         let user3 = document.getElementById("username3").innerHTML;
         let user4 = document.getElementById("username4").innerHTML;
         let today = new Date();
-        let year = today.getFullYear()
+        let year = today.getFullYear();
         today = new Date(today.getFullYear(), today.getMonth() + 1, 0, 23, 59, 59);
         let end = new Date(today);
         let lastEnd = end.getDate();
@@ -137,8 +137,6 @@ export class CalenderBody {
         let lastEnd = end.getDate();
         year1 = month1 === 11 ? year1 + 1 : year1;
         month1 = (month1 + 1) % 12;
-
-
         showCalendar(year1, month1);
         return lastEnd
     }
@@ -161,7 +159,6 @@ export class CalenderBody {
 
             //fetch aufrufen
             const fetch = this.view.listUser();
-
             //behandlung des fetch
             fetch.then(function (response) {
                 return response.json();
@@ -266,7 +263,7 @@ export class CalenderBody {
         const klsdf = function fetchedData (data) {
             const view = this.view;
 
-            let calenderMap = this.mapper.calendarMapper(data, user1, user2, user3, user4);
+            let calenderMap = this.mapper.calendarMapper(data);
 
             let timeArray = [];
 
