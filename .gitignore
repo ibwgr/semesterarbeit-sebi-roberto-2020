@@ -9,7 +9,7 @@
 
 .idea/dictionaries
 
-.cache
+.calenderView/cache
 
 # Sensitive or high-churn files:
 .idea/**/dataSources/
@@ -393,4 +393,5 @@ Temporary Items
 docker-compose.yml
 .env
 dist
+/calenderView/.cache/
 /calenderView/.cache/

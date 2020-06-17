@@ -68,7 +68,6 @@ export class CalendarMapper {
             // Set erstellen um jeden Namen nur einmal zu haben
             let set = new Set();
             names.map(x => set.add(x.toString()))
-        console.log("Mapper set ",set)
         return set
 
     }

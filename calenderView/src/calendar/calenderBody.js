@@ -81,7 +81,7 @@ export class CalenderBody {
     let prevBtn = document.getElementById("prev");
 
     nextbtn.onclick = ()=>{
-       this.view.removeCalender();
+        this.removeCalender();
         let lastEnd = nextMonth();
         let user1 = document.getElementById("username1").innerHTML;
         let user2 = document.getElementById("username2").innerHTML;
@@ -92,7 +92,7 @@ export class CalenderBody {
 
 
     prevBtn.onclick = ()=>{
-        this.view.removeCalender();
+        this.removeCalender();
         let lastEnd = previousMonth();
         let user1 = document.getElementById("username1").innerHTML;
         let user2 = document.getElementById("username2").innerHTML;
@@ -161,51 +161,11 @@ export class CalenderBody {
         month1 = month1 === 0 ? 11 : month1 - 1;
         showCalendar(year1, month1);
         return lastEnd
-    }}
-
-
-    showModal(button){
-
-        button.addEventListener('click', ()=> {
-            let element = document.getElementById("modal");
-            element.classList.toggle("hide");
-
-            //fetch aufrufen
-            const fetch = this.view.listUser();
-
-            //behandlung des fetch
-            fetch.then(function (datanames) {
-                    // Objektvalue, also die Namen mapen
-                    let names = datanames.map(x => Object.values(x));
-
-                    // Set erstellen um jeden Namen nur einmal zu haben
-                    let set = new Set();
-                    names.map(x => set.add(x.toString()));
-
-                    // Select-Liste mit den Namen füllen
-                    let lstName = document.getElementById("person");
-
-                    let allUser = document.createElement("OPTION");
-                    allUser.textContent = "Für alle User";
-                    lstName.options.add(allUser)
-
-
-                    set.forEach(function (item) {
-                        let lstOption = document.createElement("OPTION");
-                        lstName.options.add(lstOption);
-                        lstOption.textContent = item;
-                        lstOption.nodeValue = item;
-                        lstName.add(lstOption);
-                    })
-                })
-                .catch(function (err) {
-                    console.log('error: ' + err);
-                });
-        })
+    }
     }
 
-    saveEntry(button){
 
+    saveEntry(button){
 
         button.addEventListener('click', () => {
 
@@ -509,45 +469,6 @@ export class CalenderBody {
 
     }
 
-    deleteModal(button){
-
-        button.addEventListener('click', ()=> {
-            let element = document.getElementById("deleteModal");
-            element.classList.toggle("hide");
-
-            //fetch aufrufen
-            const fetch = this.view.listUser();
-
-            //behandlung des fetch
-            fetch.then(function (datanames) {
-                // Objektvalue, also die Namen mapen
-                let names = datanames.map(x => Object.values(x));
-
-                // Set erstellen um jeden Namen nur einmal zu haben
-                let set = new Set();
-                names.map(x => set.add(x.toString()));
-
-                // Select-Liste mit den Namen füllen
-                let lstName = document.getElementById("selectUser");
-
-                let selUser = document.createElement("OPTION");
-                selUser.textContent = "User wählen:";
-                lstName.options.add(selUser)
-
-
-                set.forEach(function (item) {
-                    let lstOption = document.createElement("OPTION");
-                    lstName.options.add(lstOption);
-                    lstOption.textContent = item;
-                    lstOption.nodeValue = item;
-                    lstName.add(lstOption);
-                })
-            })
-                .catch(function (err) {
-                    console.log('error: ' + err);
-                });
-        })
-    }
 
     deleteUser(button){
 
@@ -555,23 +476,89 @@ export class CalenderBody {
             // Eingaben aus dem Inputfeld auslesen
             let choosenOne = document.getElementById("selectUser").value;
             this.view.deleteUser(choosenOne)
+            document.getElementById("deleteModal").classList.toggle("hide");
+            location.reload()
+        })
+    }
+
+    showModal(button){
+
+        let view = this.view;
+        let mapper = this.mapper;
+
+        button.addEventListener('click', async ()=> {
+
+            let element = document.getElementById("modal");
+            element.classList.toggle("hide");
+
+
+            const fetch = view.listUser();
+            const users = await fetch;
+            const set = mapper.eachUser(users);
+
+            // Select-Liste mit den Namen füllen
+            let lstName = document.getElementById("person");
+
+            let allUser = document.createElement("OPTION");
+            //Eintrag für alle User
+            allUser.textContent = "Für alle User";
+            lstName.options.add(allUser)
+            //Liste füllen mit Usern
+            set.forEach(function (item) {
+                let lstOption = document.createElement("OPTION");
+                lstName.options.add(lstOption);
+                lstOption.textContent = item;
+                lstOption.nodeValue = item;
+                lstName.add(lstOption);
+            })
+        })
+     }
+
+
+    deleteModal(button) {
+        let view = this.view
+        let mapper = this.mapper
+
+        button.addEventListener("click", async () => {
+
+            let element = document.getElementById("deleteModal");
+            element.classList.toggle("hide");
+
+            const fetch = view.listUser()
+            const users = await fetch;
+            const set = mapper.eachUser(users);
+
+
+            // Select-Liste mit den Namen füllen
+            let lstName = document.getElementById("selectUser");
+
+            let selUser = document.createElement("OPTION");
+            //Erster Eintrag in Liste
+            selUser.textContent = "User wählen:";
+            lstName.options.add(selUser)
+
+            //Liste füllen mit Usern
+            set.forEach(function (item) {
+                let lstOption = document.createElement("OPTION");
+                lstName.options.add(lstOption);
+                lstOption.textContent = item;
+                lstOption.nodeValue = item;
+                lstName.add(lstOption);
+            })
         })
     }
 
 
-    // deleteModal(button) {
-    //     let view = this.view
-    //     let mapper = this.mapper
-    //
-    //     async function userList(){
-    //         const fetch = view.listUser()
-    //         const arr = Array.from(await fetch.then(mapper.eachUser))
-    //         console.log(arr)
-    //     }
-    //
-    //     button.addEventListener("click", alert("hallo"))
-    // }
-
+    removeCalender() {
+        let row1 = document.getElementById("user1");
+        row1.innerText = "";
+        let row2 = document.getElementById("user2");
+        row2.innerText = "";
+        let row3 = document.getElementById("user3");
+        row3.innerText = "";
+        let row4 = document.getElementById("user4");
+        row4.innerText = "";
+    }
 
 }
 

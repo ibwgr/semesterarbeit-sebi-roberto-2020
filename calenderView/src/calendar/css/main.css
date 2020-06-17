@@ -233,9 +233,16 @@ input[type=button]{
     padding: 0.5rem;
 }
 
+.titel{
+    text-align: center;
+    font-weight: bold;
+
+}
+
 .right{
 float: right;
 }
+
 .hide{
     display: none;
 }
