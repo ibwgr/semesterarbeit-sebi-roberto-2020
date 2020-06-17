@@ -1,5 +1,3 @@
-import {bindCallback} from "rxjs";
-import {buffer} from "rxjs/operators";
 
 
 export class CalenderBody {
@@ -16,14 +14,6 @@ export class CalenderBody {
         this.saveEntry(saveData);
         const backToCalender = document.getElementById("back");
         this.backToCalender(backToCalender);
-        const saveUser = document.getElementById("saveUser");
-        this.saveUser(saveUser);
-        const delMod = document.getElementById("delMod");
-        this.deleteModal(delMod);
-        const backToCalender2 = document.getElementById("back2");
-        this.backToCalender2(backToCalender2);
-        const  deleteUser = document.getElementById("deleteU");
-        this.deleteUser(deleteUser);
     }
 
     showMonth(monat){
@@ -32,7 +22,7 @@ export class CalenderBody {
         let user3 = document.getElementById("username3").innerHTML;
         let user4 = document.getElementById("username4").innerHTML;
         let today = new Date();
-        let year = today.getFullYear()
+        let year = today.getFullYear();
         today = new Date(today.getFullYear(), today.getMonth() + 1, 0, 23, 59, 59);
         let end = new Date(today);
         let lastEnd = end.getDate();
@@ -81,7 +71,7 @@ export class CalenderBody {
     let prevBtn = document.getElementById("prev");
 
     nextbtn.onclick = ()=>{
-        this.removeCalender();
+       this.view.removeCalender();
         let lastEnd = nextMonth();
         let user1 = document.getElementById("username1").innerHTML;
         let user2 = document.getElementById("username2").innerHTML;
@@ -92,7 +82,7 @@ export class CalenderBody {
 
 
     prevBtn.onclick = ()=>{
-        this.removeCalender();
+        this.view.removeCalender();
         let lastEnd = previousMonth();
         let user1 = document.getElementById("username1").innerHTML;
         let user2 = document.getElementById("username2").innerHTML;
@@ -147,8 +137,6 @@ export class CalenderBody {
         let lastEnd = end.getDate();
         year1 = month1 === 11 ? year1 + 1 : year1;
         month1 = (month1 + 1) % 12;
-
-
         showCalendar(year1, month1);
         return lastEnd
     }
@@ -161,11 +149,52 @@ export class CalenderBody {
         month1 = month1 === 0 ? 11 : month1 - 1;
         showCalendar(year1, month1);
         return lastEnd
-    }
-    }
+    }}
 
+
+    showModal(button){
+        button.addEventListener('click', ()=> {
+            let element = document.getElementById("modal");
+            element.classList.toggle("hide");
+
+            //fetch aufrufen
+            const fetch = this.view.listUser();
+            //behandlung des fetch
+            fetch.then(function (response) {
+                return response.json();
+            })
+                .then(function (datanames) {
+                    // Objektvalue, also die Namen mapen
+                    let names = datanames.map(x => Object.values(x));
+
+                    // Set erstellen um jeden Namen nur einmal zu haben
+                    let set = new Set();
+                    names.map(x => set.add(x.toString()));
+
+                    // Select-Liste mit den Namen füllen
+                    let lstName = document.getElementById("person");
+
+                    let allUser = document.createElement("OPTION");
+                    allUser.textContent = "Für alle User";
+                    lstName.options.add(allUser)
+
+
+                    set.forEach(function (item) {
+                        let lstOption = document.createElement("OPTION");
+                        lstName.options.add(lstOption);
+                        lstOption.textContent = item;
+                        lstOption.nodeValue = item;
+                        lstName.add(lstOption);
+                    })
+                })
+                .catch(function (err) {
+                    console.log('error: ' + err);
+                });
+        })
+    }
 
     saveEntry(button){
+
 
         button.addEventListener('click', () => {
 
@@ -229,23 +258,12 @@ export class CalenderBody {
         })
     }
 
-    backToCalender2(button){
-        button.addEventListener('click', ()=> {
-            // Select Liste leeren
-            const selectElement = document.getElementById("selectUser");
-            while (selectElement.length > 0){
-                selectElement.remove(0);
-            }
-            document.getElementById("deleteModal").classList.toggle("hide");
-        })
-    }
-
     async showData(year, monat, user1, user2, user3, user4, lastEnd){
 
         const klsdf = function fetchedData (data) {
             const view = this.view;
 
-            let calenderMap = this.mapper.calendarMapper(data, user1, user2, user3, user4);
+            let calenderMap = this.mapper.calendarMapper(data);
 
             let timeArray = [];
 
@@ -371,6 +389,7 @@ export class CalenderBody {
 
                 button.setAttribute("id", id);
                 button.innerText = "Löschen";
+                button.style.backgroundColor = "green";
 
                 button.onclick = function() {
 
@@ -415,150 +434,5 @@ export class CalenderBody {
         const fetch = this.view.showFamilyCalendar(monat, year);
         await fetch.then(klsdf);
     }
-
-
-    saveUser(button) {
-
-        const fetch = this.view.listUser();
-        const view = this.view;
-
-        const saveUser = async function saveUsr() {
-            let arr = [];
-            let isNew = false;
-            let event = {}
-
-
-            // Eingaben aus dem Inputfeld auslesen
-            let newUser = document.getElementById("newUser").value;
-
-
-            //behandlung des fetch
-            await fetch.then(data =>{
-
-                // Objektvalue, also die Namen mapen
-                let names = data.map(x => Object.values(x))
-
-                // Set erstellen um jeden Namen nur einmal zu haben
-                let set = new Set();
-                names.map(x => set.add(x.toString()))
-                arr = Array.from(set);
-
-                let idx = arr.indexOf(newUser);
-               // Prüfung ob Inputfeld nicht leer und nicht schon bestehender Nutzer
-                if(newUser === ""){
-                    alert("Kein Nutzername erfasst!")
-                    } else if(idx !== -1){
-                        alert("Nutzer bereits vorhanden!")
-                    }else{ isNew = true}
-                    console.log(isNew)
-                    console.log(arr)
-                // leerer Eintrag in DB erstellen, damit der User einen Eintrag hat. Ugly quick and dirty
-                if(isNew){
-                // Objekt bilden -> Wird im fetch zu json umgewandelt
-                    event.firstname = newUser;
-                    event.appointment = "";
-                    event.eventdate = "0000-00-00";
-                    view.addNewAppointment(event);
-                    location.reload()
-                   console.log(event)
-                }
-                });
-        }
-
-        button.addEventListener('click',saveUser);
-
-    }
-
-
-    deleteUser(button){
-
-        button.addEventListener('click', () => {
-            // Eingaben aus dem Inputfeld auslesen
-            let choosenOne = document.getElementById("selectUser").value;
-            this.view.deleteUser(choosenOne)
-            document.getElementById("deleteModal").classList.toggle("hide");
-            location.reload()
-        })
-    }
-
-    showModal(button){
-
-        let view = this.view;
-        let mapper = this.mapper;
-
-        button.addEventListener('click', async ()=> {
-
-            let element = document.getElementById("modal");
-            element.classList.toggle("hide");
-
-
-            const fetch = view.listUser();
-            const users = await fetch;
-            const set = mapper.eachUser(users);
-
-            // Select-Liste mit den Namen füllen
-            let lstName = document.getElementById("person");
-
-            let allUser = document.createElement("OPTION");
-            //Eintrag für alle User
-            allUser.textContent = "Für alle User";
-            lstName.options.add(allUser)
-            //Liste füllen mit Usern
-            set.forEach(function (item) {
-                let lstOption = document.createElement("OPTION");
-                lstName.options.add(lstOption);
-                lstOption.textContent = item;
-                lstOption.nodeValue = item;
-                lstName.add(lstOption);
-            })
-        })
-     }
-
-
-    deleteModal(button) {
-        let view = this.view
-        let mapper = this.mapper
-
-        button.addEventListener("click", async () => {
-
-            let element = document.getElementById("deleteModal");
-            element.classList.toggle("hide");
-
-            const fetch = view.listUser()
-            const users = await fetch;
-            const set = mapper.eachUser(users);
-
-
-            // Select-Liste mit den Namen füllen
-            let lstName = document.getElementById("selectUser");
-
-            let selUser = document.createElement("OPTION");
-            //Erster Eintrag in Liste
-            selUser.textContent = "User wählen:";
-            lstName.options.add(selUser)
-
-            //Liste füllen mit Usern
-            set.forEach(function (item) {
-                let lstOption = document.createElement("OPTION");
-                lstName.options.add(lstOption);
-                lstOption.textContent = item;
-                lstOption.nodeValue = item;
-                lstName.add(lstOption);
-            })
-        })
-    }
-
-
-    removeCalender() {
-        let row1 = document.getElementById("user1");
-        row1.innerText = "";
-        let row2 = document.getElementById("user2");
-        row2.innerText = "";
-        let row3 = document.getElementById("user3");
-        row3.innerText = "";
-        let row4 = document.getElementById("user4");
-        row4.innerText = "";
-    }
-
 }
 

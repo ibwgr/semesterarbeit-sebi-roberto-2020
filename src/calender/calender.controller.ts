@@ -51,10 +51,8 @@ export class CalenderController {
         return this.calenderService.findEntriesByMonth(month, year)
     }
 
-
     @Delete('event/:firstname')
     removeAllByName(@Param('firstname') name: String):Promise<Familycalender[]>{
         return this.calenderService.deleteAllByName(name)
     }
-
 }

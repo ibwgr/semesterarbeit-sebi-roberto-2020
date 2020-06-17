@@ -13,9 +13,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "regenerator-runtime": "^0.13.5"
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "express": "^4.17.1",
+    "regenerator-runtime": "^0.13.5",
+    "shallow": "^1.0.0"
   },
   "devDependencies": {
+    "enzyme": "^3.11.0",
     "jest": "^26.0.1"
   }
 }
