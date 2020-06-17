@@ -59,4 +59,17 @@ export class CalendarMapper {
 
         return calenderMap
     }
+
+    eachUser(data){
+
+            // Objektvalue, also die Namen mapen
+            let names = data.map(x => Object.values(x))
+
+            // Set erstellen um jeden Namen nur einmal zu haben
+            let set = new Set();
+            names.map(x => set.add(x.toString()))
+        console.log("Mapper set ",set)
+        return set
+
+    }
 }

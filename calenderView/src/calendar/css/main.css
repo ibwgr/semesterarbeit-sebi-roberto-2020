@@ -220,7 +220,7 @@ button {
     margin-left: 1rem;
 }
 
-.panelContent input[type=button]{
+input[type=button]{
     margin-left: 0;
     border-radius: 8px;
     border: solid 1px white;

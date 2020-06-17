@@ -51,6 +51,12 @@ export class CalenderService {
     async update(calender: Familycalender): Promise<UpdateResult>{
         return this.calenderRepository.update(calender.id, calender)
     }
+
+    async deleteAllByName(name): Promise<Familycalender[]>{
+        return await this.calenderRepository.query(
+            'delete from familycalender where firstname LIKE "'+name+'"')
+    }
+
 }
 
 

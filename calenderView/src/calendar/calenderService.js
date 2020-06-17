@@ -74,4 +74,18 @@ export class CalenderService {
             location.reload()
         }
     }
+
+    deleteUser(name){
+
+        fetch('http://localhost:3000/event/' + name, {
+            method: 'DELETE',
+        })
+            .then (function (response) {
+            return response.json();
+        })
+            .catch (function (err) {
+                console.log('error: ' + err);
+            })
+
+    }
 }

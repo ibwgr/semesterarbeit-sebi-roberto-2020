@@ -11,6 +11,7 @@
 <div id="modal" class="modal hide">
     <div class="panel">
         <div class="panelContent">
+            <p class="titel">TERMIN ERFASSEN</p>
             <div><label for="termin">Termin</label>
                 <input class="right" type="text" id="termin" name="termin">
             </div>
@@ -25,6 +26,21 @@
             <div>
                 <input type="button" id="back" value="Zurück">
                 <input class="right" type="button" id="saveData" value="Speichern">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="deleteModal" class="modal hide">
+    <div class="panel">
+        <div class="panelContent">
+            <p>USER LÖSCHEN</p>
+                <div><label for="selectUser">Nutzer: </label>
+                <select class="right" name="selectUser" id="selectUser"></select>
+            </div>
+            <div>
+                <input type="button" id="back2" value="Zurück">
+                <input class="right" type="button" id="deleteU" value="Löschen">
             </div>
         </div>
     </div>
@@ -46,6 +62,7 @@
         <input type="text" id="newUser" name="newUser" placeholder="Zusätzlicher User">
         <input type="button" id="saveUser" value="Hinzufügen">
         <span>|</span>
+        <input type="button" id="delMod" value="User entfernen">
     </div>
 
 
@@ -55,6 +72,7 @@
         <p id="username2">Sebi</p>
         <p id="username3">Fredi</p>
         <p id="username4">Susi</p>
+        <p id="username5"></p>
     </ul>
 
 

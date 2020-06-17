@@ -1,4 +1,5 @@
 import {bindCallback} from "rxjs";
+import {buffer} from "rxjs/operators";
 
 
 export class CalenderBody {
@@ -17,6 +18,12 @@ export class CalenderBody {
         this.backToCalender(backToCalender);
         const saveUser = document.getElementById("saveUser");
         this.saveUser(saveUser);
+        const delMod = document.getElementById("delMod");
+        this.deleteModal(delMod);
+        const backToCalender2 = document.getElementById("back2");
+        this.backToCalender2(backToCalender2);
+        const  deleteUser = document.getElementById("deleteU");
+        this.deleteUser(deleteUser);
     }
 
     showMonth(monat){
@@ -158,6 +165,7 @@ export class CalenderBody {
 
 
     showModal(button){
+
         button.addEventListener('click', ()=> {
             let element = document.getElementById("modal");
             element.classList.toggle("hide");
@@ -258,6 +266,17 @@ export class CalenderBody {
                 selectElement.remove(0);
             }
             document.getElementById("modal").classList.toggle("hide");
+        })
+    }
+
+    backToCalender2(button){
+        button.addEventListener('click', ()=> {
+            // Select Liste leeren
+            const selectElement = document.getElementById("selectUser");
+            while (selectElement.length > 0){
+                selectElement.remove(0);
+            }
+            document.getElementById("deleteModal").classList.toggle("hide");
         })
     }
 
@@ -392,7 +411,6 @@ export class CalenderBody {
 
                 button.setAttribute("id", id);
                 button.innerText = "Löschen";
-                button.style.backgroundColor = "green";
 
                 button.onclick = function() {
 
@@ -484,13 +502,76 @@ export class CalenderBody {
                     location.reload()
                    console.log(event)
                 }
-                    // Inputfeld leeren
-                    // document.getElementById("newUser").value = "";
                 });
         }
 
         button.addEventListener('click',saveUser);
 
     }
+
+    deleteModal(button){
+
+        button.addEventListener('click', ()=> {
+            let element = document.getElementById("deleteModal");
+            element.classList.toggle("hide");
+
+            //fetch aufrufen
+            const fetch = this.view.listUser();
+
+            //behandlung des fetch
+            fetch.then(function (datanames) {
+                // Objektvalue, also die Namen mapen
+                let names = datanames.map(x => Object.values(x));
+
+                // Set erstellen um jeden Namen nur einmal zu haben
+                let set = new Set();
+                names.map(x => set.add(x.toString()));
+
+                // Select-Liste mit den Namen füllen
+                let lstName = document.getElementById("selectUser");
+
+                let selUser = document.createElement("OPTION");
+                selUser.textContent = "User wählen:";
+                lstName.options.add(selUser)
+
+
+                set.forEach(function (item) {
+                    let lstOption = document.createElement("OPTION");
+                    lstName.options.add(lstOption);
+                    lstOption.textContent = item;
+                    lstOption.nodeValue = item;
+                    lstName.add(lstOption);
+                })
+            })
+                .catch(function (err) {
+                    console.log('error: ' + err);
+                });
+        })
+    }
+
+    deleteUser(button){
+
+        button.addEventListener('click', () => {
+            // Eingaben aus dem Inputfeld auslesen
+            let choosenOne = document.getElementById("selectUser").value;
+            this.view.deleteUser(choosenOne)
+        })
+    }
+
+
+    // deleteModal(button) {
+    //     let view = this.view
+    //     let mapper = this.mapper
+    //
+    //     async function userList(){
+    //         const fetch = view.listUser()
+    //         const arr = Array.from(await fetch.then(mapper.eachUser))
+    //         console.log(arr)
+    //     }
+    //
+    //     button.addEventListener("click", alert("hallo"))
+    // }
+
+
 }
 
