@@ -92,17 +92,17 @@ body {
 }
 
 
-#username1, #username2, #username3, #username4 {
+#username1, #username2, #username3, #username4, #username5 {
     width: 380px;
     margin-left: 150px;
 }
 
-#user1, #user2, #user3, #user4 {
+#user1, #user2, #user3, #user4, #user5 {
     margin: 0;
     width: 680px;
 }
 
-#user1 li, #user2 li, #user3 li, #user4 li {
+#user1 li, #user2 li, #user3 li, #user4 li, #user5 li {
     list-style-type: none;
     text-align: center;
     font-size: 16px;
@@ -220,7 +220,7 @@ button {
     margin-left: 1rem;
 }
 
-.panelContent input[type=button]{
+input[type=button]{
     margin-left: 0;
     border-radius: 8px;
     border: solid 1px white;
@@ -233,9 +233,16 @@ button {
     padding: 0.5rem;
 }
 
+.titel{
+    text-align: center;
+    font-weight: bold;
+
+}
+
 .right{
 float: right;
 }
+
 .hide{
     display: none;
 }
@@ -255,7 +262,7 @@ float: right;
 /* Add media queries for smaller screens */
 @media screen and (max-width: 768px) {
 
-    #days li, .weekdays li, #user1 li, #user2 li, #user3 li, #user4 li{
+    #days li, .weekdays li, #user1 li, #user2 li, #user3 li, #user4 li, #user5 li{
         font-size: 13px;
         width: 100px;
 
@@ -266,7 +273,7 @@ float: right;
         padding: 2px;
     }
 
-    #placeholder, #username1, #username2, #username3, #username4 {
+    #placeholder, #username1, #username2, #username3, #username4, #username5 {
         width: 120px;
         margin-left: 20px;
         font-size: 15px;
@@ -284,7 +291,7 @@ float: right;
         padding: 2px;
     }
 
-    #placeholder, #username1, #username2, #username3, #username4 {
+    #placeholder, #username1, #username2, #username3, #username4, username5 {
         width: 150px;
         margin-left: 10px;
         font-size: 10px;
@@ -294,7 +301,7 @@ float: right;
         height: 50%;
     }
 
-    #days li, #user1 li, #user2 li, #user3 li, #user4 li {
+    #days li, #user1 li, #user2 li, #user3 li, #user4 li, #user5 {
         list-style-type: none;
         text-align: center;
         font-size: 10px;
