@@ -93,7 +93,7 @@ export class CalenderBody {
         showCalendar(month1, year1);
 
 
-       async function showCalendar(month, year) {
+       function showCalendar(month, year) {
 
            let totalDays = daysInMonth(month1, year1);
 
@@ -131,17 +131,6 @@ export class CalenderBody {
            }
 
            document.getElementById("month").innerHTML = months[month1] + " " + year1;
-
-           const fetch = view.listUser();
-           const list = await fetch;
-           const users = Array.from(mapper.eachUser(list));
-
-           for(let x = 0; x < users.length; x++){
-               let userx = "username"+(x+1);
-               let name = users[x];
-               document.getElementById(userx).innerHTML = name;
-           }
-
        }
 
         function nextMonth() {
@@ -166,7 +155,15 @@ export class CalenderBody {
         }
     }
 
-    showMonth(monat){
+    async showMonth(monat) {
+        const fetch = this.view.listUser();
+        const list = await fetch;
+        const users = Array.from(this.mapper.eachUser(list));
+
+        for (let x = 0; x < users.length; x++) {
+            let userx = "username" + (x + 1);
+            document.getElementById(userx).innerHTML = users[x];
+        }
         let user1 = document.getElementById("username1").innerHTML;
         let user2 = document.getElementById("username2").innerHTML;
         let user3 = document.getElementById("username3").innerHTML;
@@ -177,7 +174,7 @@ export class CalenderBody {
         today = new Date(today.getFullYear(), today.getMonth() + 1, 0, 23, 59, 59);
         let end = new Date(today);
         let lastEnd = end.getDate();
-        this.showData(year,monat + 1, user1, user2, user3, user4, user5, lastEnd)
+        this.showData(year, monat + 1, user1, user2, user3, user4, user5, lastEnd)
     }
 
     saveEntry(button){
