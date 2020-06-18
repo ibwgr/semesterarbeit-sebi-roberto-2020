@@ -175,11 +175,22 @@ export class CalenderBody {
         let end = new Date(today);
         let lastEnd = end.getDate();
         this.showData(year, monat + 1, user1, user2, user3, user4, user5, lastEnd)
+
+        if(users.length === 5){
+            console.log("ist Voll")
+            let alert = document.getElementById("alert");
+            alert.classList.toggle("hide");
+            let input = document.getElementById("newUser");
+            input.classList.toggle("hide");
+            let save = document.getElementById("saveUser");
+            save.classList.toggle("hide");
+            }else {console.log("hat platz")}
+
     }
 
     saveEntry(button){
 
-        button.addEventListener('click', () => {
+        button.addEventListener('click', async () => {
 
             // Eingaben aus dem Modal auslesen
             let termin = document.getElementById("termin").value;
@@ -193,13 +204,9 @@ export class CalenderBody {
                 alert("Ungültige Eingabe")
             } else if (person === "Für alle User") {
 
-                let user1 = document.getElementById("username1").innerText;
-                let user2 = document.getElementById("username2").innerText;
-                let user3 = document.getElementById("username3").innerText;
-                let user4 = document.getElementById("username4").innerText;
-                let user5 = document.getElementById("username5").innerText;
-
-                let users = [user1, user2, user3, user4, user5];
+                const fetch = this.view.listUser();
+                const list = await fetch;
+                const users = Array.from(this.mapper.eachUser(list))
 
                 for (let x = 0; x < users.length; x++) {
 
