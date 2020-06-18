@@ -11,6 +11,7 @@
 <div id="modal" class="modal hide">
     <div class="panel">
         <div class="panelContent">
+            <p class="titel">TERMIN ERFASSEN</p>
             <div><label for="termin">Termin</label>
                 <input class="right" type="text" id="termin" name="termin">
             </div>
@@ -30,6 +31,21 @@
     </div>
 </div>
 
+<div id="deleteModal" class="modal hide">
+    <div class="panel">
+        <div class="panelContent">
+            <p class="titel">USER LÖSCHEN</p>
+                <div><label for="selectUser">User: </label>
+                <select class="right" name="selectUser" id="selectUser"></select>
+            </div>
+            <div>
+                <input type="button" id="back2" value="Zurück">
+                <input class="right" type="button" id="deleteU" value="Löschen">
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div id="calender">
     <div class="month">
@@ -41,20 +57,23 @@
     </div>
 
     <div class="settings">
-        <input type="button" id="showModal"value="Neuer Eintrag">
+        <input type="text" class="visible" id="newUser" name="newUser" placeholder="Zusätzlicher User">
+        <input type="button" class="visible" id="saveUser" value="Hinzufügen">
+        <span class="alert hide" id="alert">Maximale Anzahl User erreicht</span>
         <span>|</span>
-        <input type="text" id="newUser" name="newUser" placeholder="Zusätzlicher User">
-        <input type="button" id="saveUser" value="Hinzufügen">
+        <input type="button" id="delMod" value="User entfernen">
         <span>|</span>
+        <input type="button" id="showModal"value="Neuer Termin">
     </div>
 
 
     <ul id="usernames">
-        <p id="placeholder">Datum</p>
-        <p id="username1">Roberto</p>
-        <p id="username2">Sebi</p>
-        <p id="username3">Fredi</p>
-        <p id="username4">Susi</p>
+        <li id="placeholder">Datum</li>
+        <li id="username1"></li>
+        <li id="username2"></li>
+        <li id="username3"></li>
+        <li id="username4"></li>
+        <li id="username5"></li>
     </ul>
 
 
@@ -64,6 +83,7 @@
     <ul id="user2"></ul>
     <ul id="user3"></ul>
     <ul id="user4"></ul>
+    <ul id="user5"></ul>
 
 </div>
 
