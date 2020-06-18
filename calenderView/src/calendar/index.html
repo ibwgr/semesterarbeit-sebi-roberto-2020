@@ -57,22 +57,23 @@
     </div>
 
     <div class="settings">
-        <input type="button" id="showModal"value="Neuer Eintrag">
-        <span>|</span>
-        <input type="text" id="newUser" name="newUser" placeholder="Zusätzlicher User">
-        <input type="button" id="saveUser" value="Hinzufügen">
+        <input type="text" class="visible" id="newUser" name="newUser" placeholder="Zusätzlicher User">
+        <input type="button" class="visible" id="saveUser" value="Hinzufügen">
+        <span class="alert hide" id="alert">Maximale Anzahl User erreicht</span>
         <span>|</span>
         <input type="button" id="delMod" value="User entfernen">
+        <span>|</span>
+        <input type="button" id="showModal"value="Neuer Termin">
     </div>
 
 
     <ul id="usernames">
-        <p id="placeholder">Datum</p>
-        <p id="username1">Roberto</p>
-        <p id="username2">Sebi</p>
-        <p id="username3">Fredi</p>
-        <p id="username4">Susi</p>
-        <p id="username5"></p>
+        <ul id="placeholder">Datum</ul>
+        <ul id="username1"></ul>
+        <ul id="username2"></ul>
+        <ul id="username3"></ul>
+        <ul id="username4"></ul>
+        <ul id="username5"></ul>
     </ul>
 
 
@@ -82,6 +83,7 @@
     <ul id="user2"></ul>
     <ul id="user3"></ul>
     <ul id="user4"></ul>
+    <ul id="user5"></ul>
 
 </div>
 
