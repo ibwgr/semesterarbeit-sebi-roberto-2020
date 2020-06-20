@@ -6,5 +6,5 @@
   "password": "java",
   "database": "calender",
   "entities": ["dist/**/*.entity.js"],
-  "synchronize": true
+  "synchronize": false
 }
