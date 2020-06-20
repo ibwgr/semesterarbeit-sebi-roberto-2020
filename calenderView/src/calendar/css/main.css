@@ -1,9 +1,9 @@
-* {
+*{
     box-sizing: border-box;
     list-style-type: none;
 }
 
-li {
+li{
     margin: 10px
 }
 
@@ -14,14 +14,14 @@ ul{
 }
 
 
-body {
+body{
     font-family: Verdana, sans-serif;
     background-image: url("images/background4.jpg");
     background-color: #cccccc;
 }
 
 
-#year {
+#year{
     visibility: hidden;
 }
 
@@ -132,7 +132,7 @@ body {
 #usernames {
     display: flex;
     background-color: #000066;
-    height: 60px;
+
     color: white;
     font-size: 20px;
     font-weight: bold;
@@ -169,15 +169,16 @@ button {
 }
 
 .settings{
-    margin: 20px 0 0 10px;
+    margin: 10px 0 0 0;
+    background-color: #000066;
 }
 
 .settings span{
     color: white;
+    margin: 5px;
 }
-
-.newUser{
-
+.settings input{
+    margin: 5px;
 }
 
 .modal {

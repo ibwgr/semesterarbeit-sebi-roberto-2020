@@ -16,6 +16,10 @@ INSERT into calender.familycalender
 
 VALUES
 
+('Roberto', '', '0000-00-00'),
+('Sebi', '', '0000-00-00'),
+('Susi', '', '0000-00-00'),
+('Fredi', '', '0000-00-00'),
 ('Roberto', 'Feuerwehr', '2020-06-05'),
 ('Roberto', 'Frei', '2020-06-05'),
 ('Sebi', 'Feuerwehr', '2020-04-05'),
