@@ -26,23 +26,23 @@ body{
 }
 
 #month{
-
 }
 
 #content{
     display: flex;
 }
-
-.month {
-    padding: 30px 25px;
-    background: #008CBA;
-    text-align: center;
-    font-size: 20px;
-    font-weight: bold;
-    border: 1px solid #ccc;;
+.header{
     position: -webkit-sticky;
     position: sticky;
     top: 0;
+    border: 1px solid #ccc;
+}
+.month {
+    padding: 30px 25px 0 25px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #034F8A;
 }
 
 .month ul {
@@ -88,13 +88,16 @@ body{
     border: 1px solid #ccc;;
     height: 80px;
     padding: 20px;
-    background-color: #008CBA;
+    background-color: #1986D7;
 }
 
+#alert{
+    color: khaki;
+        }
 
 #username1, #username2, #username3, #username4, #username5 {
-    width: 380px;
-    margin-left: 150px;
+    margin: 0 10px 0 10px;
+    width: 680px;
 }
 
 #user1, #user2, #user3, #user4, #user5 {
@@ -118,48 +121,53 @@ body{
 
 
 #days li.weekend {
-    background: #afbc1a;
+    background: #888A0A;
     color: white !important;
 }
 
 #days li.active {
-    background: white;
-    color: black !important;
-    border: solid black;
+    background: #D6342F;
+    color: white !important;
+    border: solid #1986D7;
 }
 
 
 #usernames {
     display: flex;
-    background-color: #000066;
-
+    padding-top: 5px;
+    padding-bottom: 5px;
     color: white;
     font-size: 20px;
     font-weight: bold;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 7vmax;
+    background-color: #1986D7;
+}
+
+#usernames span{
+    text-align: center;
 }
 
 
 
-#placehoder {
-    padding-left: 20px;
+#placeholder {
+    margin: 0 40px 0 40px;
+    }
+
+#showModal {
+    margin-left: 2rem;
 }
 
-#trash {
-    font-size: 5px;
+#delMod {
+    margin-right: 2rem;
 }
 
-#deleteButton {
-    background-color: #528CE0;
-}
+
+
 
 button {
     border-radius: 8px;
-    background-color: #008CBA;
+
     margin: 3px;
-    color: white;
+
 }
 
 
@@ -169,13 +177,13 @@ button {
 }
 
 .settings{
-    margin: 10px 0 0 0;
-    background-color: #000066;
+    padding-bottom: 5px;
+    background-color: #034F8A;
 }
 
 .settings span{
     color: white;
-    margin: 5px;
+    margin: 5px 0 5px 0;
 }
 .settings input{
     margin: 5px;
@@ -194,15 +202,9 @@ button {
     grid-template-rows: 1fr auto 1fr;
 }
 
-#entryButton {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 5vmax;
-}
-
 .panel {
     color: white;
-    background: #008CBA;
+    background: #1986D7;
     grid-column: 2;
     grid-row: 2;
     padding: 1rem;
@@ -225,13 +227,15 @@ input[type=button]{
     margin-left: 0;
     border-radius: 8px;
     border: solid 1px white;
-
-
 }
 
 .panelContent div {
     margin: 1rem;
     padding: 0.5rem;
+}
+#newUser{
+    margin-left: 0;
+    margin-right: 1.5rem;
 }
 
 .titel{
@@ -250,13 +254,11 @@ float: right;
 
 
 .footer {
-    height: 100px;
     background-color: black;
     color: white;
     text-align: center;
     vertical-align: middle;
     margin: auto;
-    padding-top: 35px;
 }
 
 
@@ -292,7 +294,7 @@ float: right;
         padding: 2px;
     }
 
-    #placeholder, #username1, #username2, #username3, #username4, username5 {
+    #placeholder, #username1, #username2, #username3, #username4, #username5 {
         width: 150px;
         margin-left: 10px;
         font-size: 10px;

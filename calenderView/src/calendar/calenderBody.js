@@ -17,7 +17,7 @@ export class CalenderBody {
         const saveUser = document.getElementById("saveUser");
         this.saveUser(saveUser);
         const delMod = document.getElementById("delMod");
-        this.deleteModal(delMod);
+        this.userModal(delMod);
         const backToCalender2 = document.getElementById("back2");
         this.backToCalender2(backToCalender2);
         const  deleteUser = document.getElementById("deleteU");
@@ -177,7 +177,6 @@ export class CalenderBody {
         this.showData(year, monat + 1, user1, user2, user3, user4, user5, lastEnd)
 
         if(users.length === 5){
-            console.log("ist Voll")
             let alert = document.getElementById("alert");
             alert.classList.toggle("hide");
             let input = document.getElementById("newUser");
@@ -257,7 +256,7 @@ export class CalenderBody {
             while (selectElement.length > 0){
                 selectElement.remove(0);
             }
-            document.getElementById("deleteModal").classList.toggle("hide");
+            document.getElementById("userModal").classList.toggle("hide");
         })
     }
 
@@ -407,7 +406,6 @@ export class CalenderBody {
 
                 button.setAttribute("id", id);
                 button.innerText = "Löschen";
-                button.style.backgroundColor = "green";
 
                 button.onclick = function() {
 
@@ -422,7 +420,7 @@ export class CalenderBody {
                     let a = [];
                     for (let x =0; x < data.length; x++){
 
-                        a.push(data[x].meet + "<br>");
+                        a.push(data[x].meet + "\n");
                     }
 
                     element.innerText = a;
@@ -512,7 +510,7 @@ export class CalenderBody {
             // Eingaben aus dem Inputfeld auslesen
             let choosenOne = document.getElementById("selectUser").value;
             this.view.deleteUser(choosenOne)
-            document.getElementById("deleteModal").classList.toggle("hide");
+            document.getElementById("userModal").classList.toggle("hide");
             location.reload()
         })
     }
@@ -551,13 +549,13 @@ export class CalenderBody {
     }
 
 
-    deleteModal(button) {
+    userModal(button) {
         let view = this.view
         let mapper = this.mapper
 
         button.addEventListener("click", async () => {
 
-            let element = document.getElementById("deleteModal");
+            let element = document.getElementById("userModal");
             element.classList.toggle("hide");
 
             const fetch = view.listUser()
