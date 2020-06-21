@@ -11,7 +11,7 @@
 <div id="modal" class="modal hide">
     <div class="panel">
         <div class="panelContent">
-            <p class="titel">TERMIN ERFASSEN</p>
+            <h3 class="titel">TERMIN ERFASSEN</h3>
             <div><label for="termin">Termin</label>
                 <input class="right" type="text" id="termin" name="termin">
             </div>
@@ -31,13 +31,24 @@
     </div>
 </div>
 
-<div id="deleteModal" class="modal hide">
+<div id="userModal" class="modal hide">
     <div class="panel">
         <div class="panelContent">
-            <p class="titel">USER LÖSCHEN</p>
-                <div><label for="selectUser">User: </label>
+            <h3 class="titel">USER VERWALTUNG</h3>
+            <div>
+                <h4>User hinzufügen:</h4>
+                <span class="right alert hide" id="alert">Maximum erreicht!</span>
+                <input type="text" id="newUser" name="newUser" placeholder="Name neuer User">
+                <input type="button" class="right" id="saveUser" value="Hinzufügen">
+            </div>
+
+            <div>
+                <hr>
+                <h4>User löschen:</h4>
+                <label for="selectUser">User: </label>
                 <select class="right" name="selectUser" id="selectUser"></select>
             </div>
+
             <div>
                 <input type="button" id="back2" value="Zurück">
                 <input class="right" type="button" id="deleteU" value="Löschen">
@@ -48,6 +59,7 @@
 
 
 <div id="calender">
+    <div class="header">
     <div class="month">
         <ul>
             <li id="prev">&#10094;</li>
@@ -58,22 +70,19 @@
 
     <div class="settings">
         <input type="button" id="showModal"value="Neuer Termin">
-        <input type="button" id="delMod" class="right" value="User entfernen">
-        <span class="right">|</span>
-        <span class="right alert hide" id="alert">Maximale Anzahl User erreicht</span>
-        <input type="button" class="right" id="saveUser" value="Hinzufügen">
-        <input type="text" class="right" id="newUser" name="newUser" placeholder="Name neuer User">
+        <input type="button" id="delMod" class="right" value="User Verwaltung">
     </div>
 
 
-    <ul id="usernames">
-        <li id="placeholder">Datum</li>
-        <li id="username1"></li>
-        <li id="username2"></li>
-        <li id="username3"></li>
-        <li id="username4"></li>
-        <li id="username5"></li>
-    </ul>
+    <div id="usernames">
+        <span id="placeholder">Datum</span>
+        <span id="username1"></span>
+        <span id="username2"></span>
+        <span id="username3"></span>
+        <span id="username4"></span>
+        <span id="username5"></span>
+    </div>
+    </div>
 
 
 <div id="content">
@@ -89,9 +98,7 @@
 
 </div>
 
-<div id="values"></div>
-
-<div class="footer">Copyright by Roberto Salerno & Sebastian Rüegg</div>
+<div class="footer">&copy; by Roberto Salerno & Sebastian Rüegg</div>
 
 
 <script type="module" src="app.js"></script>
