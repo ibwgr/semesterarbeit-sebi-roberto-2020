@@ -8,13 +8,13 @@ li{
 }
 
 ul{
-    padding-left: 0px;
+    padding-left: 0;
     width: content-box;
 }
 
 body{
     font-family: Verdana, sans-serif;
-    /*background-image: url("images/background4.jpg");*/
+    background-image: url("images/background4.jpg");
     background-color: #cccccc;
 }
 
@@ -239,206 +239,134 @@ float: right;
 }
 
 
-/* Add media queries for smaller screens */
-/*@media screen and (max-width: 768px) {*/
-/*    body{*/
-/*        background-color: green;*/
-
-/*    }*/
-
-/*    #days li, .weekdays li, #user1 li, #user2 li, #user3 li, #user4 li, #user5 li{*/
-/*        font-size: 13px;*/
-/*        width: 100px;*/
-
-/*    }*/
-
-
-/*    #days li .active {*/
-/*        padding: 2px;*/
-/*    }*/
-
-/*    #placeholder, #username1, #username2, #username3, #username4, #username5 {*/
-/*        width: 120px;*/
-/*        margin-left: 20px;*/
-/*        font-size: 15px;*/
-/*    }*/
-/*}*/
-
-/*@media screen and (max-width: 420px) {*/
-/*    body{*/
-/*        background-color: blue;*/
-
-/*    }*/
-
-/*    #days li {*/
-/*        font-size: 10px;*/
-/*    }*/
-
-
-/*    #days li .active {*/
-/*        padding: 2px;*/
-/*    }*/
-
-/*    #placeholder, #username1, #username2, #username3, #username4, #username5 {*/
-/*        width: 150px;*/
-/*        margin-left: 10px;*/
-/*        font-size: 10px;*/
-/*    }*/
-
-/*    #usernames{*/
-/*        height: 50%;*/
-/*    }*/
-
-/*    #days li, #user1 li, #user2 li, #user3 li, #user4 li, #user5 li {*/
-/*        list-style-type: none;*/
-/*        text-align: center;*/
-/*        font-size: 10px;*/
-/*        color: black;*/
-/*        border: 1px solid black;;*/
-/*        width: 20px;*/
-/*    }*/
-/*}*/
-@media screen and (max-width: 360px) {
-    body{
-        background-color: red;
-    }
-
+ /*Add media queries for smaller screens*/
+@media screen and (max-width: 700px) {
     li{
-        margin: 2px
-    }
-
-    ul{
-        padding-left: 0px;
-        width: content-box;
+        margin: 5px;
     }
 
     .header{
-        position: -webkit-sticky;
-        position: sticky;
-        top: 0;
+        width: 684px;
+    }
+
+    #days li {
+        padding: 10px;
+    }
+
+    #user1 li, #user2 li, #user3 li, #user4 li, #user5 li {
+        width: 102px;
+        box-shadow: 3px 3px #000066;
+    }
+
+    #usernames {
+        font-size: 18px;
+    }
+
+    #placeholder {
+        margin: 0 30px 0 25px;
+    }
+
+    .button {
+        font-size: 11px;
+    }
+}
+@media screen and (max-width: 480px) {
+    body{
+        margin: 1px;
+    }
+
+    li{
+        margin: 1px;
+    }
+
+    .header{
+        width: 478px;
+    }
+
+    .month {
+        padding: 25px 20px 0 25px;
+    }
+
+    #days li {
+        font-size: 10px;
+        width: 64px;
+        height: 60px;
+        padding: 1px;
+    }
+
+    #user1 li, #user2 li, #user3 li, #user4 li, #user5 li {
+        font-size: 10px;
+        width: 80px;
+        height: 60px;
+        padding: 2px;
         border: 1px solid #ccc;
-        min-width: 402px;
+        box-shadow: none;
+    }
+
+    #usernames {
+        font-size: 13px;
+    }
+
+    #placeholder {
+        margin: 0 9px 0 9px;
+    }
+
+    .button {
+        font-size: 9px;
+    }
+
+    input[type=button]{
+        font-size: 12px;
+    }
+
+    .footer {
+        font-size: 10px;
+    }
+}
+@media screen and (max-width: 360px) {
+    body{
+        margin: 0;
+    }
+
+    li{
+        margin: 0;
+    }
+
+    .header{
+        width: 360px;
     }
 
     .month {
         padding: 10px 5px 0 5px;
-        text-align: center;
-        font-weight: bold;
-        background-color: #034F8A;
-    }
-
-    .month ul {
-        margin: 0;
-        padding: 0;
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-template-rows: 1fr;
     }
 
     .month ul li {
-        margin: 0 10px;
-        padding: 0 10px;
-        color: white;
         font-size: 10px;
-        text-transform: uppercase;
-        letter-spacing: 3px;
-    }
-
-    #content{
-        display: flex;
-    }
-
-    #weekdays {
-        margin: 0;
-        width: 70px;
-        background-color: brown;
-        float: left;
-    }
-
-    #weekdays li {
-        color: black;
-        text-align: center;
-        height: 60px;
-        border: 1px solid #ccc;;
-    }
-
-    #days {
-        margin: 0;
     }
 
     #days li {
-        list-style-type: none;
-        text-align: center;
         font-size: 8px;
-        width: 55px;
-        color: white;
-        border: 1px solid #ccc;;
+        width: 50px;
         height: 40px;
-        padding: 5px;
-        background-color: #1986D7;
-    }
-
-    #alert{
-        color: khaki;
-    }
-
-    #username1, #username2, #username3, #username4, #username5 {
-        margin: 0 10px 0 10px;
-        width: 680px;
-    }
-
-    #user1, #user2, #user3, #user4, #user5 {
-        margin: 0;
-        width: 680px;
+        padding: 1px;
     }
 
     #user1 li, #user2 li, #user3 li, #user4 li, #user5 li {
-        list-style-type: none;
-        text-align: center;
         font-size: 9px;
         color: black;
-        border: 1px solid black;;
-        width: 65px;
+        width: 62px;
         height: 40px;
-        overflow: auto;
-        background-color: lightyellow;
-        padding: 5px;
+        padding: 1px;
+        border: 1px solid #ccc;
         box-shadow: none;
     }
 
-    #days li.weekend {
-        background: #888A0A;
-        color: white !important;
-    }
-
-    #days li.active {
-        background: #D6342F;
-        color: white !important;
-        border: solid #1986D7;
-    }
-
     #usernames {
-        display: flex;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        color: white;
-        font-size: 10px;
-        font-weight: bold;
-        background-color: #1986D7;
-    }
-
-    #usernames span{
-        text-align: center;
+        font-size: 9px;
     }
 
     #placeholder {
-        margin: 0 10px 0 10px;
-    }
-
-
-
-    #delMod {
-        margin-right: 2rem;
+        margin: 0 8px 0 8px;
     }
 
     .button {
