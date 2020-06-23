@@ -57,49 +57,42 @@
     </div>
 </div>
 
-
 <div id="calender">
     <div class="header">
-    <div class="month">
-        <ul>
-            <li id="prev">&#10094;</li>
-            <li id="month"><div id="year"></div></li>
-            <li id="next">&#10095;</li>
-        </ul>
+        <div class="month">
+            <ul>
+                <li id="prev">&#10094;</li>
+                <li id="month"><div id="year"></div></li>
+                <li id="next">&#10095;</li>
+             </ul>
+        </div>
+
+        <div class="settings">
+            <input type="button" id="showModal"value="Neuer Termin">
+            <input type="button" id="delMod" class="right" value="User Verwaltung">
+        </div>
+
+         <div id="usernames">
+             <span id="placeholder">Datum</span>
+             <span id="username1"></span>
+             <span id="username2"></span>
+             <span id="username3"></span>
+             <span id="username4"></span>
+             <span id="username5"></span>
+        </div>
     </div>
 
-    <div class="settings">
-        <input type="button" id="showModal"value="Neuer Termin">
-        <input type="button" id="delMod" class="right" value="User Verwaltung">
+    <div id="content">
+        <ul id="days"></ul>
+        <ul id="user1"></ul>
+        <ul id="user2"></ul>
+        <ul id="user3"></ul>
+        <ul id="user4"></ul>
+        <ul id="user5"></ul>
     </div>
-
-
-    <div id="usernames">
-        <span id="placeholder">Datum</span>
-        <span id="username1"></span>
-        <span id="username2"></span>
-        <span id="username3"></span>
-        <span id="username4"></span>
-        <span id="username5"></span>
-    </div>
-    </div>
-
-
-<div id="content">
-    <ul id="days"></ul>
-    <ul id="user1"></ul>
-    <ul id="user2"></ul>
-    <ul id="user3"></ul>
-    <ul id="user4"></ul>
-    <ul id="user5"></ul>
-
-</div>
-
-
 </div>
 
 <div class="footer">&copy; by Roberto Salerno & Sebastian Rüegg</div>
-
 
 <script type="module" src="app.js"></script>
 
