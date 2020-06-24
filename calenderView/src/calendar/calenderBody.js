@@ -409,7 +409,7 @@ export class CalenderBody {
                         a.push(data[x].meet + "\n");
                     }
 
-                    element.innerText = a;
+                    element.innerText = a.join("");
                     element.appendChild(button);
                     button.id = id
                 }
