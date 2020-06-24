@@ -22,13 +22,13 @@ Dazu, immer noch im Terminal der Datenbank, das *.sql* File mittels dem `SOURCE`
 SOURCE <Pfad zur Datei>
 ```
 ### Projekt in IntelliJ öffnen
-1. Backend
-- 1a. Falls IntelliJ im *Hauptverezeichnis* fragt ob npm install ausgeführt werden soll, dies bestätigen.
-- 1b. Alternativ manuell im Terminal im *Hauptverzeichnis* den Befehl `npm install` ausführen
-2. Frontend
-- 2a. Falls IntelliJ im Verzeichnis *calenderView* fragt ob npm install ausgeführt werden soll, dies bestätigen.
-- 2b. Alternativ manuell im Terminal im Verzeichnis *calenderView* den Befehl `npm install` durchführen
-3. Im File *ormconfig.json* im *Hauptverzeichnis* den Usernamen und das Passwort für den Zugriff auf die Datenbank eintragen
+1. Backend  
+  1a: Falls IntelliJ im *Hauptverezeichnis* fragt ob npm install ausgeführt werden soll, dies bestätigen.  
+  1b: Alternativ manuell im Terminal im *Hauptverzeichnis* den Befehl `npm install` ausführen
+2. Frontend  
+  2a: Falls IntelliJ im Verzeichnis *calenderView* fragt ob npm install ausgeführt werden soll, dies bestätigen.  
+  2b. Alternativ manuell im Terminal im Verzeichnis *calenderView* den Befehl `npm install` durchführen
+3. Im File *ormconfig.json*, zu finden im *Hauptverzeichnis*, den Usernamen und das Passwort für den Zugriff auf die Datenbank eintragen
 
 ## Applikation starten
 1. Terminal im *Hauptverzeichnis* öffnen und das Backend mit dem Befehl `npm run start` ausführen
