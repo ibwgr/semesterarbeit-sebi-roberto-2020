@@ -1,67 +1,44 @@
-import {CalenderService} from "../calendar/calenderService.js";
+
 import 'regenerator-runtime/runtime'
-import {response} from "express";
+import chai from 'chai';
+import chaiHttp from "chai-http";
 
+const {expect} = chai;
+chai.use(chaiHttp);
 
-describe('fetch-tests', () => {
+describe('gets right Data', ()=> {
 
-    let service = new CalenderService();
-
-    global.fetch = jest.fn().mockImplementation(() => {
-        return new Promise((resolve) => {
-            resolve([{
-
-                ok: true,
-                id:1,
-                firstname: "Sebi",
-                eventdate: "2020-02-02",
-                appointment: "Frei",
-                json: function() {
-                    return {appointment: 'Frei'}
-                }
-            },
-                {
-                    ok: true,
-                    id:2,
-                    firstname: "Roberto",
-                    eventdate: "2020-02-02",
-                    appointment: "Schule",
-                    json: function() {
-                        return {appointment: 'Schule'}
-                    }
-
-                }])
-        })
-    });
-
-    it('fetch list of users from server', async () => {
-
-        const result = await service.listUser();
-        console.log(result);
-        expect(response.statusCode).toBe(200);
-        expect(result[0].firstname).toBe("Sebi");
-        expect(result[1].firstname).toBe("Roberto");
-        expect(result.length).toBe(2)
-    });
-
-    it('fetch list of events from server', async () => {
-
-        await service.showFamilyCalendar(4,2020);
-        expect(response.statusCode).toBe(200)
+    it('get successfull userList', (done)=> {
+      chai.request('http://localhost:3000').get('/names')
+           .end((err,res)=>{
+               expect(res).to.have.status(200);
+               expect(res).to.be.an('object');
+               expect(res.body).to.be.an('array');
+               done()
+           })
     });
 
 
-    it('delete event call should return code 200', async () => {
-
-        await service.deleteAppointment(1);
-        expect(response.statusCode).toBe(200)
+    it('get successfull calendarEntries', (done)=> {
+        chai.request('http://localhost:3000').get('/events')
+            .end((err,res)=>{
+                expect(res).to.have.status(200);
+                expect(res).to.be.an('object');
+                expect(res.body).to.be.an('array');
+                done()
+            })
     });
 
 
-    it('add event call should return code 200', async () => {
-
-        await service.addNewAppointment({firstname: "Roberto", appointment: "Golfen", eventdate: "2020-03-03"});
-        expect(response.statusCode).toBe(200)
-    });
+    it('get successfull calendarEntries for june 2020', (done) => {
+        chai.request('http://localhost:3000').get('/date/6/2020')
+            .end((err,res)=>{
+                expect(res).to.have.status(200);
+                expect(res).to.be.an('object');
+                expect(res.body).to.be.an('array');
+                done()
+            })
+    })
 
 });
+

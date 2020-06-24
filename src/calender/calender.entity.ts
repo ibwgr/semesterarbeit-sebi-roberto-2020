@@ -14,11 +14,6 @@ export class Familycalender {
     @Column()
     eventdate: Date;
 
-
     @Column()
     appointment: string;
-
-
-
  }
-

@@ -1,19 +1,14 @@
 
-
 export class CalenderService {
-
 
     constructor() {}
 
-    showFamilyCalendar(monat, year) {
+    showFamilyCalendar(month, year) {
 
-        return fetch('http://localhost:3000/date/' + monat + "/" + year)
+        return fetch('http://localhost:3000/date/' + month + "/" + year)
             .then(function (response) {
-
                 return response.json();
-
             })
-
             .catch(function (err) {
                 console.log('error: ' + err);
             });
@@ -25,6 +20,7 @@ export class CalenderService {
         return fetch('http://localhost:3000/names')
             .then(function (response) {
                 return response.json();
+
             })
             .catch(function (err) {
                 console.log('error: ' + err);
@@ -49,6 +45,7 @@ export class CalenderService {
 
 
     deleteAppointment(id) {
+
         for (let x = 0; x < id.length; x++) {
 
             fetch('http://localhost:3000/events/' + id[x], {
@@ -62,6 +59,7 @@ export class CalenderService {
         }
     }
 
+
     deleteUser(name){
 
         fetch('http://localhost:3000/event/' + name, {
@@ -73,6 +71,5 @@ export class CalenderService {
             .catch (function (err) {
                 console.log('error: ' + err);
             })
-
     }
 }

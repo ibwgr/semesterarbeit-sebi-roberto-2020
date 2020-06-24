@@ -15,7 +15,11 @@
   "dependencies": {
     "@babel/core": "^7.10.2",
     "@babel/preset-env": "^7.10.2",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "express": "^4.17.1",
+    "mocha": "^8.0.1",
+    "node-fetch": "^2.6.0",
     "regenerator-runtime": "^0.13.5",
     "shallow": "^1.0.0"
   },

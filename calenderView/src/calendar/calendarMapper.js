@@ -17,29 +17,14 @@ export class CalendarMapper {
 
         for (let x = 0; x < mainContainer.length; x++) {
 
-            let currentEntry = mainContainer[x]; //aktueller Eintrag
-            let nextEntry = mainContainer[x + 1]; // nächster Eintrag
+            let currentEntry = mainContainer[x];
+            let nextEntry = mainContainer[x + 1];
 
-            if (nextEntry && currentEntry.eventdate === nextEntry.eventdate) { //check ob es weitere Events am gleichen Tag gibt
-
-                let user = currentEntry.firstname;
-                let event = currentEntry.appointment;
-                let eventsForUser = userMap.get(user); //in erster Iteration undefined
-
-                if (!eventsForUser) {
-                    eventsForUser = [];  // falls undefinend erstelle neues leeres Array
-                }
-
-                eventsForUser.push({id: currentEntry, description: event});
-                // füge event dem array hinzu
-                userMap.set(user, eventsForUser); // füge alle events für einen User hinzu. (key und value)
-
-            } else {  // falls nächstes Datum unterschiedlich ist => neue map erstellen
+            if (nextEntry && currentEntry.eventdate === nextEntry.eventdate) {
 
                 let user = currentEntry.firstname;
                 let event = currentEntry.appointment;
                 let eventsForUser = userMap.get(user);
-
 
                 if (!eventsForUser) {
                     eventsForUser = [];
@@ -47,8 +32,21 @@ export class CalendarMapper {
 
                 eventsForUser.push({id: currentEntry, description: event});
                 userMap.set(user, eventsForUser);
-                calenderMap.set(currentEntry.eventdate, userMap); // setze key und value für haupt-map
-                userMap = new Map(); // neue userMap für neues Datum wird initialisiert.
+
+            } else {
+
+                let user = currentEntry.firstname;
+                let event = currentEntry.appointment;
+                let eventsForUser = userMap.get(user);
+
+                if (!eventsForUser) {
+                    eventsForUser = [];
+                }
+
+                eventsForUser.push({id: currentEntry, description: event});
+                userMap.set(user, eventsForUser);
+                calenderMap.set(currentEntry.eventdate, userMap);
+                userMap = new Map();
             }
         }
 
@@ -61,14 +59,10 @@ export class CalendarMapper {
     }
 
     eachUser(data){
-
-            // Objektvalue, also die Namen mapen
-            let names = data.map(x => Object.values(x))
-
-            // Set erstellen um jeden Namen nur einmal zu haben
+            let names = data.map(x => Object.values(x));
             let set = new Set();
-            names.map(x => set.add(x.toString()))
-        return set
+            names.map(x => set.add(x.toString()));
 
+        return set
     }
 }

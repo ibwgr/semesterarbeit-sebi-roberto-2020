@@ -3,10 +3,10 @@
 export class CalenderBody {
 
 
-    constructor(view, mapper){
+    constructor(service, mapper){
 
         this.mapper = mapper;
-        this.view = view;
+        this.view = service;
         this.calender();
         const newEntry = document.getElementById("showModal");
         this.showModal(newEntry);
@@ -25,8 +25,6 @@ export class CalenderBody {
     }
 
     calender(){
-        let mapper = this.mapper;
-        let view = this.view;
 
         let today = new Date();
         let dayInt = today.getDate();
@@ -53,6 +51,7 @@ export class CalenderBody {
             "November",
             "Dezember"
         ];
+
         let weekdays = [
             "Sonntag",
             "Montag",
@@ -66,6 +65,7 @@ export class CalenderBody {
 
         let nextbtn = document.getElementById("next");
         let prevBtn = document.getElementById("prev");
+
 
         nextbtn.onclick = ()=>{
             this.removeCalender();
@@ -96,13 +96,11 @@ export class CalenderBody {
        function showCalendar(month, year) {
 
            let totalDays = daysInMonth(month1, year1);
-
            calendarBody.innerHTML = "";
 
            function daysInMonth(month, year) {
                return new Date(year, month + 1, 0).getDate();
            }
-
 
            for (let day = 1; day <= totalDays; day++) {
 
@@ -174,7 +172,7 @@ export class CalenderBody {
         today = new Date(today.getFullYear(), today.getMonth() + 1, 0, 23, 59, 59);
         let end = new Date(today);
         let lastEnd = end.getDate();
-        this.showData(year, monat + 1, user1, user2, user3, user4, user5, lastEnd)
+        this.showData(year, monat + 1, user1, user2, user3, user4, user5, lastEnd);
 
         if(users.length === 5){
             let alert = document.getElementById("alert");
@@ -183,15 +181,13 @@ export class CalenderBody {
             input.classList.toggle("hide");
             let save = document.getElementById("saveUser");
             save.classList.toggle("hide");
-            }else {console.log("hat platz")}
-
+            }
     }
 
     saveEntry(button){
 
         button.addEventListener('click', async () => {
 
-            // Eingaben aus dem Modal auslesen
             let termin = document.getElementById("termin").value;
             let date = document.getElementById("date").value;
             let person = document.getElementById("person").value;
@@ -205,7 +201,7 @@ export class CalenderBody {
 
                 const fetch = this.view.listUser();
                 const list = await fetch;
-                const users = Array.from(this.mapper.eachUser(list))
+                const users = Array.from(this.mapper.eachUser(list));
 
                 for (let x = 0; x < users.length; x++) {
 
@@ -213,7 +209,6 @@ export class CalenderBody {
                     event.firstname = users[x];
                     event.appointment = termin;
                     event.eventdate = date;
-
                     this.view.addNewAppointment(event)
                 }
             }
@@ -224,7 +219,6 @@ export class CalenderBody {
                 event.firstname = person;
                 event.appointment = termin;
                 event.eventdate = date;
-
                 this.view.addNewAppointment(event);
             }
 
@@ -240,7 +234,6 @@ export class CalenderBody {
 
     backToCalender(button){
         button.addEventListener('click', ()=> {
-            // Select Liste leeren
             const selectElement = document.getElementById("person");
             while (selectElement.length > 0){
                 selectElement.remove(0);
@@ -251,7 +244,7 @@ export class CalenderBody {
 
     backToCalender2(button){
         button.addEventListener('click', ()=> {
-            // Select Liste leeren
+
             const selectElement = document.getElementById("selectUser");
             while (selectElement.length > 0){
                 selectElement.remove(0);
@@ -261,14 +254,12 @@ export class CalenderBody {
     }
 
 
-
     async showData(year, monat, user1, user2, user3, user4, user5, lastEnd){
 
-        const klsdf = function fetchedData (data) {
+        const fetchData = function fetchedData (data) {
+
             const view = this.view;
-
             let calenderMap = this.mapper.calendarMapper(data);
-
             let timeArray = [];
 
             let row1 = document.getElementById("user1");
@@ -280,11 +271,11 @@ export class CalenderBody {
 
             for (let [key, value] of calenderMap.entries()) {
 
-                let r = user1;
-                let s = user2;
-                let f = user3;
-                let z = user4;
-                let zz = user5;
+                let u1 = user1;
+                let u2 = user2;
+                let u3 = user3;
+                let u4 = user4;
+                let u5 = user5;
                 let time = new Date(key);
                 let tag = time.getDate();
                 let mapping = value.entries();
@@ -306,19 +297,19 @@ export class CalenderBody {
                         })
                     }
 
-                    if (user === r) {
+                    if (user === u1) {
                         pushItems(a)
                     }
-                    if (user === s) {
+                    if (user === u2) {
                         pushItems(b)
                     }
-                    if (user === f) {
+                    if (user === u3) {
                         pushItems(c)
                     }
-                    if (user === z) {
+                    if (user === u4) {
                         pushItems(d)
                     }
-                    if (user === zz) {
+                    if (user === u5) {
                         pushItems(dd)
                     }
                 }
@@ -335,7 +326,6 @@ export class CalenderBody {
                 let currentDate = timeArray[timeArray.length - 2];
                 let nextDate = timeArray[timeArray.length - 1];
                 let diffTage = nextDate - currentDate;
-
 
                 if (timeArray > 0) {
                     fillIn(firstEmptyFields)
@@ -390,7 +380,7 @@ export class CalenderBody {
             let lastEntry = timeArray.pop();
             let fillUp = lastEnd - lastEntry;
 
-            if (calenderMap.size === 0) { // Gitter auffüllen mit leeren Feldern falls es im Monat keine Termine hat
+            if (calenderMap.size === 0) {
                 fillIn(lastEnd)
             }
 
@@ -400,18 +390,14 @@ export class CalenderBody {
             function createField(data, id) {
 
                 const element = document.createElement("li");
-
                 let button = document.createElement("button");
                 button.classList.add("button");
-
                 button.setAttribute("id", id);
                 button.innerText = "Löschen";
-
                 button.onclick = function() {
 
                     view.deleteAppointment(id)
                 };
-
 
                 if (button.id === ""){
                     button.style.display = "none"
@@ -441,7 +427,7 @@ export class CalenderBody {
                     let element2 = createField("", "");
                     row3.appendChild(element2);
                     let element3 = createField("", "");
-                    row4.appendChild(element3)
+                    row4.appendChild(element3);
                     let element4 = createField("", "");
                     row5.appendChild(element4)
                 }
@@ -450,9 +436,7 @@ export class CalenderBody {
         }.bind({mapper: this.mapper, view: this.view});
 
         const fetch = this.view.showFamilyCalendar(monat, year);
-        await fetch.then(klsdf);
-
-
+        await fetch.then(fetchData);
     }
 
     saveUser(button) {
@@ -463,34 +447,26 @@ export class CalenderBody {
         const saveUser = async function saveUsr() {
             let arr = [];
             let isNew = false;
-            let event = {}
-
-
-            // Eingaben aus dem Inputfeld auslesen
+            let event = {};
             let newUser = document.getElementById("newUser").value;
 
-
-            //behandlung des fetch
             await fetch.then(data =>{
 
-                // Objektvalue, also die Namen mapen
-                let names = data.map(x => Object.values(x))
-
-                // Set erstellen um jeden Namen nur einmal zu haben
+                let names = data.map(x => Object.values(x));
                 let set = new Set();
-                names.map(x => set.add(x.toString()))
+                names.map(x => set.add(x.toString()));
                 arr = Array.from(set);
 
                 let idx = arr.indexOf(newUser);
-                // Prüfung ob Inputfeld nicht leer und nicht schon bestehender Nutzer
+
                 if(newUser === ""){
                     alert("Kein Nutzername erfasst!")
                 } else if(idx !== -1){
                     alert("Nutzer bereits vorhanden!")
                 }else{ isNew = true}
-                // leerer Eintrag in DB erstellen, damit der User einen Eintrag hat. Ugly quick and dirty
+
                 if(isNew){
-                    // Objekt bilden -> Wird im fetch zu json umgewandelt
+
                     event.firstname = newUser;
                     event.appointment = "";
                     event.eventdate = "0000-00-00";
@@ -498,18 +474,17 @@ export class CalenderBody {
                     location.reload()
                 }
             });
-        }
+        };
 
         button.addEventListener('click',saveUser);
-
     }
 
     deleteUser(button){
 
         button.addEventListener('click', () => {
-            // Eingaben aus dem Inputfeld auslesen
+
             let choosenOne = document.getElementById("selectUser").value;
-            this.view.deleteUser(choosenOne)
+            this.view.deleteUser(choosenOne);
             document.getElementById("userModal").classList.toggle("hide");
             location.reload()
         })
@@ -525,19 +500,16 @@ export class CalenderBody {
             let element = document.getElementById("modal");
             element.classList.toggle("hide");
 
-
             const fetch = view.listUser();
             const users = await fetch;
             const set = mapper.eachUser(users);
 
-            // Select-Liste mit den Namen füllen
             let lstName = document.getElementById("person");
-
             let allUser = document.createElement("OPTION");
-            //Eintrag für alle User
+
             allUser.textContent = "Für alle User";
-            lstName.options.add(allUser)
-            //Liste füllen mit Usern
+            lstName.options.add(allUser);
+
             set.forEach(function (item) {
                 let lstOption = document.createElement("OPTION");
                 lstName.options.add(lstOption);
@@ -550,28 +522,24 @@ export class CalenderBody {
 
 
     userModal(button) {
-        let view = this.view
-        let mapper = this.mapper
+        let view = this.view;
+        let mapper = this.mapper;
 
         button.addEventListener("click", async () => {
 
             let element = document.getElementById("userModal");
             element.classList.toggle("hide");
 
-            const fetch = view.listUser()
+            const fetch = view.listUser();
             const users = await fetch;
             const set = mapper.eachUser(users);
 
-
-            // Select-Liste mit den Namen füllen
             let lstName = document.getElementById("selectUser");
-
             let selUser = document.createElement("OPTION");
-            //Erster Eintrag in Liste
-            selUser.textContent = "User wählen:";
-            lstName.options.add(selUser)
 
-            //Liste füllen mit Usern
+            selUser.textContent = "User wählen:";
+            lstName.options.add(selUser);
+
             set.forEach(function (item) {
                 let lstOption = document.createElement("OPTION");
                 lstName.options.add(lstOption);
@@ -581,9 +549,6 @@ export class CalenderBody {
             })
         })
     }
-
-
-
 
 
     removeCalender() {
@@ -598,7 +563,4 @@ export class CalenderBody {
         let row5 = document.getElementById("user5");
         row5.innerText = "";
     }
-
-
 }
-

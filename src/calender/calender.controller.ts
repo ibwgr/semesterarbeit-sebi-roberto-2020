@@ -45,7 +45,6 @@ export class CalenderController {
         return this.calenderService.findSortByDate()
     }
 
-
     @Get('date/:month/:year')
     findMonth(@Param('month') month: number, @Param('year')year: number):Promise<Familycalender[]>{
         return this.calenderService.findEntriesByMonth(month, year)

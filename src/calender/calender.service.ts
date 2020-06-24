@@ -2,7 +2,7 @@ import {Injectable} from '@nestjs/common';
 import {InjectRepository} from "@nestjs/typeorm";
 import {Repository, UpdateResult} from "typeorm";
 import {Familycalender} from "./calender.entity";
-import {promises} from "dns";
+
 
 @Injectable()
 export class CalenderService {
@@ -27,6 +27,7 @@ export class CalenderService {
             .getMany());
     }
 
+
     async findEntriesByMonth(monat, year): Promise<Familycalender[]>{
         return await this.calenderRepository.query(
             "select * from familycalender  where month(eventdate) LIKE "+monat+" and year(eventdate) LIKE "+year+" order by eventdate")
@@ -37,6 +38,7 @@ export class CalenderService {
         return this.calenderRepository.find();
     }
 
+
     findOne(id: number):Promise<Familycalender>{
         return this.calenderRepository.findOne(id)
     }
@@ -46,13 +48,16 @@ export class CalenderService {
         await this.calenderRepository.delete(id)
     }
 
+
      async create(calender: Familycalender): Promise<Familycalender>{
         return this.calenderRepository.save(calender);
     }
 
+
     async update(calender: Familycalender): Promise<UpdateResult>{
         return this.calenderRepository.update(calender.id, calender)
     }
+
 
     async deleteAllByName(name): Promise<Familycalender[]>{
         return await this.calenderRepository.query(
@@ -60,5 +65,3 @@ export class CalenderService {
     }
 
 }
-
-

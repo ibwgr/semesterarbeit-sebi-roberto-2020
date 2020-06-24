@@ -50,7 +50,19 @@ const data = [
 ];
 
 
+const userData = [
+    {firstname: "Roberto"},
+    {firstname: "Sebi"},
+    {firstname: "Fritz"},
+    {firstname: "Sebi"},
+    {firstname: "Susi"},
+    {firstname: "Roberto"}
+
+];
+
+
 describe('mappertest', () => {
+
 
     let mapper = new CalendarMapper();
     let result = mapper.calendarMapper(data);
@@ -82,6 +94,24 @@ describe('mappertest', () => {
 
     test('contain right date', () => {
         expect(result.keys()).toContain("2020-01-01", "2020-12-12", "2020-05-08", "2020-12-03")
-    })
+    });
 
+
+    test('contains only 4 Users', () => {
+        let userresult = mapper.eachUser(userData);
+        expect(userresult.size).toBe(4)
+    });
+
+    test('contains no double-entries', () => {
+        function containsDublicates(userData) {
+            return userData
+                .sort()
+                .some(function (item, i, items) {
+                    return item === items[i + 1]
+                })
+        }
+
+        const result = containsDublicates(userData);
+        console.log(result)
+    })
 });
