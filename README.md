@@ -37,4 +37,17 @@ SOURCE <Pfad zur Datei>
 -> Das Frontend kann nun im Browser unter http://localhost:1234 aufgerufen werden
 
 
+#### TESTS
+##### Unit-Tests
+Für die Unit-Tests muss das Backend gestartet sein!  
+- Um die Unit-Tests in der Konsole zu starten, im Terminal im Verzeichnis *calenderView* den Befehl `npm run test` ausführen.
+
+#### End2End-Tests
+Für die End2End-Tests müssen das Backend und das Frontend gestartet sein.  
+- Um die End2End-Tests in der Konsole zu starten, im Terminal im Verzeichnis *Hauptverzeichnis* den Befehl `npm run test:e2e` ausführen.  
+- Im geöffneten Browserfenster auf `Run all specs` klicken
+- alternativ auf *calender.spec.js* doppelklicken
+
+
+
 
