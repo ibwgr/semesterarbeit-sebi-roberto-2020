@@ -16,7 +16,7 @@ Verwendeter Befehl im Terminal:
 create database calender;
 ```
 2. Erstellen der Tabelle *familycalender*  
-Zum erstellen der benötigten Tabelle in der Datenbank, inkl. vorabgefüllter Daten zur Kalender-Demonstration, kann das File *calender.sql*, welches im *src* Verzeichnis zu finden ist, verwendet werden.  
+Zum Erstellen der benötigten Tabelle in der Datenbank, inkl. vorabgefüllter Daten zur Kalender-Demonstration, kann das File *calender.sql*, welches im *src* Verzeichnis zu finden ist, verwendet werden.  
 Dazu, immer noch im Terminal der Datenbank, das *.sql* File mittels dem `SOURCE` Befehl importieren
 ```
 SOURCE <Pfad zur Datei>
