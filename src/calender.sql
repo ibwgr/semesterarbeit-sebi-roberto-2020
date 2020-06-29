@@ -29,6 +29,6 @@ VALUES
 ('Vater', 'Ferien','2020-04-11'),
 ('Tochter', 'Reiten 12 Uhr','2020-06-24'),
 ('Vater', 'Frei','2020-06-25'),
-('Mutter', 'Banktermin 11 Uhr','2020-06-25')
+('Mutter', 'Banktermin 11 Uhr','2020-06-25'),
 ('Vater', 'Wellness','2020-06-06'),
 ('Mutter', 'Wellness','2020-06-06')

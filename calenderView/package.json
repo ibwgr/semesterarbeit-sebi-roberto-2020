@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "jest",
-    "start": "NODE_ENV=development rm -rf .cache && npx parcel ${DIR:-src}/calendar/index.html"
+    "start": "rm -rf .cache && npx parcel ${DIR:-src}/calendar/index.html"
   },
   "author": "",
   "license": "ISC",
