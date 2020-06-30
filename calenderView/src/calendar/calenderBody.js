@@ -94,6 +94,7 @@ export class CalenderBody {
 
 
        function showCalendar(month, year) {
+           weekday = new Date(year, month).getDay()
 
            let totalDays = daysInMonth(month1, year1);
            calendarBody.innerHTML = "";
@@ -117,8 +118,8 @@ export class CalenderBody {
 
                if (
                    dayInt === day &&
-                   month === today.getMonth() &&
-                   year === today.getFullYear()
+                   month === new Date().getMonth() &&
+                   year === new Date().getFullYear()
                ) {
                    cell.classList.add("active");
                }
@@ -138,7 +139,7 @@ export class CalenderBody {
             let lastEnd = end.getDate();
             year1 = month1 === 11 ? year1 + 1 : year1;
             month1 = (month1 + 1) % 12;
-            showCalendar(year1, month1);
+            showCalendar(month1, year1);
             return lastEnd
         }
 
@@ -148,7 +149,7 @@ export class CalenderBody {
             let lastEnd = end.getDate();
             year1 = month1 === 0 ? year1 - 1 : year1;
             month1 = month1 === 0 ? 11 : month1 - 1;
-            showCalendar(year1, month1);
+            showCalendar(month1, year1);
             return lastEnd
         }
     }
@@ -460,10 +461,12 @@ export class CalenderBody {
                 let idx = arr.indexOf(newUser);
 
                 if(newUser === ""){
-                    alert("Kein Nutzername erfasst!")
+                    alert("Kein User erfasst!")
                 } else if(idx !== -1){
-                    alert("Nutzer bereits vorhanden!")
-                }else{ isNew = true}
+                    alert("User bereits vorhanden!")
+                }else if(newUser.length >10){
+                    alert("Maximal 10 Zeichen erlaubt!")
+                }else {isNew = true}
 
                 if(isNew){
 
