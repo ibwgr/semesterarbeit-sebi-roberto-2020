@@ -10,7 +10,8 @@
     "test": "jest",
     "start": "rm -rf .cache && npx parcel ${DIR:-src}/calendar/index.html"
   },
-  "author": "",
+  "author": "Roberto Salerno",
+  "contributors": ["Sebastian Rüegg"],
   "license": "ISC",
   "dependencies": {
     "@babel/core": "^7.10.2",
